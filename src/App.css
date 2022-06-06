@@ -1,38 +1,35 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+.rubik-400 {
+  font-family: 'rubik' !important;
+  font-weight: 400 !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.titillium-400 {
+  font-family: 'titillium web' !important;
+  font-weight: 400 !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.titillium-600 {
+  font-family: 'titillium web' !important;
+  font-weight: 600 !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.titillium-700 {
+  font-family: 'titillium web' !important;
+  font-weight: 700 !important;
 }
 
-.App-link {
-  color: #61dafb;
+.landing-section {
+  background: linear-gradient(to right, rgba(3, 94, 0, 0.7), rgba(0, 0, 0, 0)),
+    url('./assets/face-recognition.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.registration-section {
+  background-color: #08aeea;
+  background-image: linear-gradient(90deg, #078fc0 0%, #2af598 100%);
 }
