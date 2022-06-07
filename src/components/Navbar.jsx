@@ -5,7 +5,7 @@ import { FileDoneOutlined, CaretUpOutlined } from '@ant-design/icons'
 // navigate
 import { useNavigate } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ regFormRef }) => {
   const [size, setSize] = useState('large')
   const [isOutOfLanding, setIsOutOfLanding] = useState(false)
   const navigate = useNavigate()
@@ -62,6 +62,7 @@ const Navbar = () => {
             </h4>
           </div>
           <Button
+            onClick={() => scrollToSection(regFormRef)}
             className='titillium-400 px-4'
             type='primary'
             shape='round'

@@ -6,13 +6,13 @@ import RegistrationSection from './RegistrationSection'
 import HowItWorks from './HowItWorks'
 import WhatMakesAiDifferent from './what-makes-ai-different/WhatMakesAiDifferent'
 
-const MainHome = () => {
+const MainHome = ({ regFormRef }) => {
   return (
     <>
       <LandingSection />
       <PlatformDesc />
       <TriCol />
-      <RegistrationSection />
+      <RegistrationSection regFormRef={regFormRef} />
       <HowItWorks />
       <WhatMakesAiDifferent />
     </>

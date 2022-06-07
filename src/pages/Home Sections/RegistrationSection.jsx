@@ -3,9 +3,9 @@ import { Container } from 'react-bootstrap'
 import RegForm from './RegForm'
 import formImg from '../../assets/form-img.jpg'
 
-const RegistrationSection = () => {
+const RegistrationSection = ({ regFormRef }) => {
   return (
-    <div className='py-5 registration-section'>
+    <div className='py-5 registration-section' ref={regFormRef}>
       <Container>
         <div className='row'>
           <div className='col-lg-6 py-5'>
