@@ -1,10 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { Button } from 'antd'
 import laptop from '../../assets/laptop.png'
+// aos
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 const PlatformDesc = () => {
   const [size, setSize] = useState('large')
+
+  useEffect(() => {
+    AOS.init()
+  }, [])
+
   return (
     <div className='p-4'>
       <Container className='py-5' style={{ position: 'relative' }}>
@@ -25,14 +33,33 @@ const PlatformDesc = () => {
               }}
             />
           </div>
-          <h1 className='titillium-700'>Brand Name Real Identity Platform</h1>
-          <p className='titillium-400'>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia
-            exercitationem maxime placeat totam ab ad dolorum molestias
-            consequatur voluptates. Sit magni quae amet at tenetur repellendus
-            vel, consectetur eos quis?
+          <h1
+            data-aos='fade-down'
+            data-aos-offset='100'
+            data-aos-delay='50'
+            data-aos-duration='1000'
+            className='titillium-700'
+          >
+            AI-powered Real Identity Platform
+          </h1>
+          <p
+            data-aos='fade-down'
+            data-aos-offset='50'
+            data-aos-delay='50'
+            data-aos-duration='1000'
+            className='rubik-400'
+            style={{ fontSize: '15px', color: '#636670' }}
+          >
+            Build trust with your customers using a flexible, end-to-end
+            identity verification platform. Powered by Atlas™ AI, the AI-powered
+            Real Identity Platform allows you to orchestrate award-winning
+            document and biometric verifications, trusted data sources, and
+            fraud detection signals.
           </p>
           <Button
+            data-aos='fade-right'
+            data-aos-delay='50'
+            data-aos-duration='1000'
             className='text-light mt-2'
             style={{ background: '#40B452', border: 'none' }}
             size={size}

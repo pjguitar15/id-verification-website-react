@@ -33,3 +33,8 @@
   background-color: #08aeea;
   background-image: linear-gradient(90deg, #078fc0 0%, #2af598 100%);
 }
+
+.colored-thing-on-footer {
+  background-color: #08aeea;
+  background-image: linear-gradient(90deg, #08aeea 0%, #2af598 100%);
+}
