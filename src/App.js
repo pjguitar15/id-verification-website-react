@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+import 'antd/dist/antd.min.css'
 import './App.css'
 import Navbar from './components/Navbar';
 // pages

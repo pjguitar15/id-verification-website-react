@@ -16,7 +16,7 @@ const Footer = () => {
           <div className='row'>
             <div className='col-lg-6'>
               <h1 className='text-start titillium-700 text-light m-0'>
-                <span style={{ color: '#40B452' }}>AI</span>-powered
+                <span style={{ color: '#40B452' }}>AI</span>-powered©
               </h1>
             </div>
             <div className='col-lg-6 d-flex align-items-center'>

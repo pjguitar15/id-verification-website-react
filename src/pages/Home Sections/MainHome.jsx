@@ -9,7 +9,9 @@ import WhatMakesAiDifferent from './what-makes-ai-different/WhatMakesAiDifferent
 const MainHome = ({ regFormRef }) => {
   return (
     <>
-      <LandingSection />
+      <div className='bg-warning'>
+        <LandingSection />
+      </div>
       <PlatformDesc />
       <TriCol />
       <RegistrationSection regFormRef={regFormRef} />
