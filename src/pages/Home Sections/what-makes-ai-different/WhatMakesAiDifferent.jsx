@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 // aos
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+// import AOS from 'aos'
+// import 'aos/dist/aos.css'
 
 // assets
 import customerService from '../../../assets/customer-service.jpg'
@@ -34,16 +34,18 @@ const WhatMakesAiDifferent = () => {
     content: `Our specialized teams for each region are committed to providing service within your reach and providing additional assistance as needed.`,
     img: teamwork,
   }
-  useEffect(() => {
-    AOS.init()
-  }, [])
+  // useEffect(() => {
+  //   AOS.init()
+  // }, [])
   return (
     <div className='py-5'>
       <Container>
         <h1 className='text-center titillium-700'>
           What Makes AI-powered Different?
         </h1>
-        <div data-aos='fade-down' data-aos-delay='50' data-aos-duration='1000'>
+        <div
+        // data-aos='fade-down' data-aos-delay='50' data-aos-duration='1000'
+        >
           <AIFeature
             content={firstContent.content}
             title={firstContent.title}
@@ -52,9 +54,9 @@ const WhatMakesAiDifferent = () => {
         </div>
         {/* only this play this on mobile */}
         <div
-          data-aos='fade-down'
-          data-aos-delay='50'
-          data-aos-duration='1000'
+          // data-aos='fade-down'
+          // data-aos-delay='50'
+          // data-aos-duration='1000'
           className='d-block d-lg-none'
         >
           <AIFeature
@@ -65,9 +67,9 @@ const WhatMakesAiDifferent = () => {
         </div>
         {/* only display this on large screen */}
         <div
-          data-aos='fade-down'
-          data-aos-delay='50'
-          data-aos-duration='1000'
+          // data-aos='fade-down'
+          // data-aos-delay='50'
+          // data-aos-duration='1000'
           className='d-none d-lg-block'
         >
           <AIFeatureReversed
@@ -76,7 +78,9 @@ const WhatMakesAiDifferent = () => {
             img={secondContent.img}
           />
         </div>
-        <div data-aos='fade-down' data-aos-delay='50' data-aos-duration='1000'>
+        <div
+        // data-aos='fade-down' data-aos-delay='50' data-aos-duration='1000'
+        >
           <AIFeature
             content={lastContent.content}
             title={lastContent.title}

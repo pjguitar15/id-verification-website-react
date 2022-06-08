@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Container } from 'react-bootstrap'
 import { Button } from 'antd'
 import { CaretUpOutlined } from '@ant-design/icons'
+// logo
+import logo from '../assets/AI-powered-logo-navbar.png'
 // navigate
 import { useNavigate } from 'react-router-dom'
 
@@ -40,11 +42,7 @@ const Navbar = ({ regFormRef }) => {
   }
 
   const scrollToSection = (elementRef) => {
-    console.log('test')
-    window.scrollTo({
-      top: elementRef.current.offsetTop,
-      behavior: 'smooth',
-    })
+    elementRef.current.scrollIntoView({ behavior: 'smooth' })
   }
 
   window.addEventListener('scroll', scrollListener)
@@ -72,16 +70,9 @@ const Navbar = ({ regFormRef }) => {
       <Container>
         <div className='d-flex justify-content-between align-items-center'>
           <div className='brand' onClick={() => navigate('/')}>
-            {/* <h4
-              
-              style={{ color: '#40B452', cursor: 'pointer' }}
-              className='m-0 titillium-600'
-            >
-              AI-powered
-            </h4> */}
-            <h1 className='text-start titillium-700 text-success m-0'>
-              <span style={{ color: '#40B452' }}>AI</span>-powered©
-            </h1>
+            <div className='col-7 col-md-5 col-lg-4 col-xl-3'>
+              <img src={logo} className='w-100 h-100' alt='logo' />
+            </div>
           </div>
           <Button
             onClick={() => scrollToSection(regFormRef)}

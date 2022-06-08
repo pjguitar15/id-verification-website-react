@@ -1,5 +1,7 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
+// logo
+import logo from '../assets/footer-logo.png'
 
 const Footer = () => {
   return (
@@ -15,23 +17,23 @@ const Footer = () => {
         <Container>
           <div className='row'>
             <div className='col-lg-6'>
-              <h1 className='text-start titillium-700 text-light m-0'>
-                <span style={{ color: '#40B452' }}>AI</span>-powered©
-              </h1>
+              <div className='col-9 col-sm-7 mx-auto mx-lg-0 mb-4 mb-md-0 col-lg-5'>
+                <img className='w-100 h-100' src={logo} alt='logo' />
+              </div>
             </div>
             <div className='col-lg-6 d-flex align-items-center'>
-              <div className='d-flex flex-row'>
-                <a className='text-light rubik-400' href='#'>
+              <div className='d-flex mx-auto mx-lg-0 flex-row'>
+                <div className='text-light rubik-400'>
                   © 2010-2022 AI-powered
-                </a>
+                </div>
                 <span className='text-light mx-2'>|</span>
-                <a className='text-light rubik-400' href='#'>
+                <div className='text-light rubik-400' href='#'>
                   All rights reserved.
-                </a>
+                </div>
                 <span className='text-light mx-2'>|</span>
-                <a className='text-light rubik-400' href='#'>
+                <div className='text-light rubik-400'>
                   Contact Us.
-                </a>
+                </div>
               </div>
             </div>
           </div>

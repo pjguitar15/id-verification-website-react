@@ -1,29 +1,25 @@
 import React, { useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 // aos
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+// import AOS from 'aos'
+// import 'aos/dist/aos.css'
 
 const TriCol = () => {
-  useEffect(() => {
-    AOS.init()
-  }, [])
+  // useEffect(() => {
+  //   AOS.init({ duration: 2000 })
+  // }, [])
   return (
     <div className='py-5' style={{ background: '#e6ecff' }}>
       <Container>
         <h3
-          data-aos='fade-down'
-          data-aos-delay='50'
-          data-aos-duration='1000'
+          // data-aos='fade-down'
           className='titillium-600 text-center mb-5'
         >
           End-to-end indentity verification delivers results
         </h3>
         <div className='row'>
           <div
-            data-aos='fade-right'
-            data-aos-delay='50'
-            data-aos-duration='1000'
+            // data-aos='fade-right'
             className='col-lg-4 p-2 text-center'
           >
             <div
@@ -39,9 +35,7 @@ const TriCol = () => {
             </div>
           </div>{' '}
           <div
-            data-aos='fade-up'
-            data-aos-delay='50'
-            data-aos-duration='1000'
+            // data-aos='fade-up'
             className='col-lg-4 p-2 text-center'
           >
             <div
@@ -57,9 +51,7 @@ const TriCol = () => {
             </div>
           </div>{' '}
           <div
-            data-aos='fade-left'
-            data-aos-delay='50'
-            data-aos-duration='1000'
+            // data-aos='fade-left'
             className='col-lg-4 p-2 text-center'
           >
             <div

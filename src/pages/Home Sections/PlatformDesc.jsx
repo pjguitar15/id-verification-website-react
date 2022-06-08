@@ -3,15 +3,15 @@ import { Container } from 'react-bootstrap'
 import { Button } from 'antd'
 import laptop from '../../assets/laptop.png'
 // aos
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+// import AOS from 'aos'
+// import 'aos/dist/aos.css'
 
 const PlatformDesc = () => {
   const [size, setSize] = useState('large')
 
-  useEffect(() => {
-    AOS.init()
-  }, [])
+  // useEffect(() => {
+  //   AOS.init({ duration: 2000 })
+  // }, [])
 
   return (
     <div className='p-4'>
@@ -34,20 +34,13 @@ const PlatformDesc = () => {
             />
           </div>
           <h1
-            data-aos='fade-down'
-            data-aos-offset='100'
-            data-aos-delay='50'
-            data-aos-duration='1000'
+            // data-aos='fade-down'
             className='titillium-700'
           >
             AI-powered Real Identity Platform
           </h1>
           <p
-            data-aos='fade-down'
-            data-aos-offset='50'
-            data-aos-delay='50'
-            data-aos-duration='1000'
-            className='rubik-400'
+            // data-aos='fade-down'
             style={{ fontSize: '15px', color: '#636670' }}
           >
             Build trust with your customers using a flexible, end-to-end
@@ -57,9 +50,7 @@ const PlatformDesc = () => {
             fraud detection signals.
           </p>
           <Button
-            data-aos='fade-right'
-            data-aos-delay='50'
-            data-aos-duration='1000'
+            // data-aos='fade-right'
             className='text-light mt-2'
             style={{ background: '#40B452', border: 'none' }}
             size={size}

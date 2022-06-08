@@ -10,27 +10,18 @@ const LandingSection = () => {
   const [size, setSize] = useState('large')
 
   useEffect(() => {
-    AOS.init()
+    AOS.init({ duration: 2000 })
   }, [])
 
   return (
     <div className='bg-dark landing-section p-4'>
       <Container className='py-5'>
         <div className='col-lg-6 text-start'>
-          <h1
-            data-aos='fade-down'
-            data-aos-offset='200'
-            data-aos-delay='50'
-            data-aos-duration='1000'
-            className='titillium-700 col-10 text-light'
-          >
+          <h1 data-aos='fade-down' className='titillium-700 col-10 text-light'>
             ADVANCE Intelligence, BEYOND Technology
           </h1>
           <p
             data-aos='fade-down'
-            data-aos-offset='200'
-            data-aos-delay='50'
-            data-aos-duration='1000'
             className='titillium-400 text-light'
             style={{ fontSize: '16px' }}
           >
@@ -42,9 +33,6 @@ const LandingSection = () => {
           <div className='mt-4'>
             <Button
               data-aos='fade-right'
-              data-aos-offset='200'
-              data-aos-delay='50'
-              data-aos-duration='1000'
               className='titillium-400 px-4 text-light'
               shape='round'
               size={size}
