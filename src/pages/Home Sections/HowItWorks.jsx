@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 
-const HowItWorks = () => {
+const HowItWorks = ({ learnMoreRef }) => {
   return (
-    <div className='py-5 text-light' style={{ background: '#292929' }}>
+    <div
+      className='py-5 text-light'
+      style={{ background: '#292929' }}
+      ref={learnMoreRef}
+    >
       <Container>
         <h1 className='text-center titillium-400 display-4 text-light'>
           Fulfill real world identity verification to meet KYC compliance in 3

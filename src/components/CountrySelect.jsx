@@ -1,11 +1,14 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
 
-const CountrySelect = () => {
+const CountrySelect = ({ setLocation }) => {
   return (
     <Form.Group className='my-3'>
       <Form.Text>Location</Form.Text>
-      <Form.Select placeholder='Enter email'>
+      <Form.Select
+        onChange={(e) => setLocation(e.target.value)}
+        placeholder='Enter email'
+      >
         <option value='Afghanistan'>Afghanistan</option>
         <option value='Åland Islands'>Åland Islands</option>
         <option value='Albania'>Albania</option>

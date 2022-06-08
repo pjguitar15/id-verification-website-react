@@ -22,8 +22,6 @@
 }
 
 .landing-section {
-  background: linear-gradient(to right, rgba(3, 94, 0, 0.7), rgba(0, 0, 0, 0)),
-    url('./assets/face-recognition.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -37,4 +35,33 @@
 .colored-thing-on-footer {
   background-color: #08aeea;
   background-image: linear-gradient(90deg, #08aeea 0%, #2af598 100%);
+}
+
+.neon {
+  background-color: #40b452;
+  background-image: linear-gradient(210deg, #40b452 0%, #0c8856 100%);
+}
+
+.moving-imgs {
+  -webkit-animation: thing 20s;
+  -o-animation: thing 20s;
+  animation: thing 20s;
+}
+
+@keyframes thing {
+  from {
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale(1.1, 1.1);
+  }
+}
+
+.brand {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.brand:hover {
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+  margin-left: 10px;
 }

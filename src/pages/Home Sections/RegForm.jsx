@@ -1,36 +1,76 @@
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
-import { Button } from 'antd'
+import { Button } from 'react-bootstrap'
 import CountrySelect from '../../components/CountrySelect'
+import { useFormInput } from '../../context/RegFormProvider'
+import { useNavigate } from 'react-router-dom'
 
 const RegForm = () => {
   const [size, setSize] = useState('large')
+  const value = useFormInput()
+  const navigate = useNavigate()
+
+  const submitForm = (e) => {
+    e.preventDefault()
+    navigate('/payment')
+  }
   return (
     <div className='bg-light p-5 rounded shadow-sm'>
       <h2 className='titillium-600'>Register</h2>
-      <Form>
+      <Form onSubmit={submitForm}>
         <Form.Group className='my-3'>
           <Form.Text>First name</Form.Text>
-          <Form.Control placeholder='Enter first name' />
+          <Form.Control
+            required
+            type='text'
+            value={value.firstName}
+            onChange={(e) => value.setFirstName(e.target.value)}
+            placeholder='Enter first name'
+          />
         </Form.Group>
         <Form.Group className='my-3'>
           <Form.Text>Middle name</Form.Text>
-          <Form.Control placeholder='Enter middle name' />
+          <Form.Control
+            required
+            type='text'
+            value={value.middleName}
+            onChange={(e) => value.setMiddleName(e.target.value)}
+            placeholder='Enter middle name'
+          />
         </Form.Group>
         <Form.Group className='my-3'>
           <Form.Text>Last name</Form.Text>
-          <Form.Control placeholder='Enter last name' />
+          <Form.Control
+            required
+            type='text'
+            value={value.lastName}
+            onChange={(e) => value.setLastName(e.target.value)}
+            placeholder='Enter last name'
+          />
         </Form.Group>
         <Form.Group className='my-3'>
           <Form.Text>Contact Number</Form.Text>
-          <Form.Control placeholder='Enter contact number' />
+          <Form.Control
+            required
+            type='text'
+            value={value.contactNumber}
+            onChange={(e) => value.setContactNumber(e.target.value)}
+            placeholder='Enter contact number'
+          />
         </Form.Group>
         <Form.Group className='my-3'>
           <Form.Text>Email</Form.Text>
-          <Form.Control type='email' placeholder='Enter email' />
+          <Form.Control
+            required
+            value={value.email}
+            onChange={(e) => value.setEmail(e.target.value)}
+            type='email'
+            placeholder='Enter email'
+          />
         </Form.Group>
-        <CountrySelect />
+        <CountrySelect setLocation={value.setLocation} />
         <Button
+          type='submit'
           className='titillium-400 px-4 text-light mt-3'
           shape='round'
           size={size}
