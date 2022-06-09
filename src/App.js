@@ -8,7 +8,7 @@ import MainHome from './pages/Home Sections/MainHome';
 import Footer from './components/Footer';
 import AdminPanel from './pages/admin/AdminPanel';
 import Login from './pages/admin/Login'
-import PaymentPage from './pages/PaymentPage'
+import ProcessPage from './pages/process/ProcessPage'
 // context 
 import { RegFormProvider } from './context/RegFormProvider';
 // react router dom
@@ -26,7 +26,7 @@ function App() {
             <Route path='/' element={<MainHome learnMoreRef={learnMoreRef} regFormRef={regFormRef} />} />
             <Route path='/admin' element={<AdminPanel />} />
             <Route path='/admin-login' element={<Login />} />
-            <Route path='/payment' element={<PaymentPage />} />
+            <Route path='/payment' element={<ProcessPage />} />
           </Routes>
           <Footer />
         </RegFormProvider>

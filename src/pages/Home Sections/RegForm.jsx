@@ -12,6 +12,12 @@ const RegForm = () => {
 
   const submitForm = (e) => {
     e.preventDefault()
+    localStorage.setItem('firstName', value.firstName)
+    localStorage.setItem('middleName', value.middleName)
+    localStorage.setItem('lastName', value.lastName)
+    localStorage.setItem('contactNumber', value.contactNumber)
+    localStorage.setItem('email', value.email)
+    localStorage.setItem('location', value.location)
     navigate('/payment')
   }
   return (
