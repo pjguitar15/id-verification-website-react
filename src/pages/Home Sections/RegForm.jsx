@@ -18,7 +18,7 @@ const RegForm = () => {
     localStorage.setItem('contactNumber', value.contactNumber)
     localStorage.setItem('email', value.email)
     localStorage.setItem('location', value.location)
-    navigate('/payment')
+    navigate('/purchase-verification')
   }
   return (
     <div className='bg-light p-5 rounded shadow-sm'>

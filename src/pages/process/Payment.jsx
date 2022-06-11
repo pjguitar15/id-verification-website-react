@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { Button } from 'antd'
 
-const Payment = ({ value, cancelClick }) => {
+const Payment = ({ value, cancelClick, setIsStepOneDone }) => {
   const [localStorageItems, setLocalStorageItems] = useState({})
   useEffect(() => {
     const firstName = localStorage.getItem('firstName')
@@ -20,6 +20,9 @@ const Payment = ({ value, cancelClick }) => {
       location,
     })
   }, [])
+  const payHandler = () => {
+    setIsStepOneDone(true)
+  }
   return (
     <Container>
       <div className='col-lg-8 mx-auto'>
@@ -71,7 +74,7 @@ const Payment = ({ value, cancelClick }) => {
         <hr />
         {/* attention message */}
         <Button
-          onClick={() => alert('test')}
+          onClick={payHandler}
           className='titillium-400 px-4 mt-2'
           type='primary'
           shape='round'

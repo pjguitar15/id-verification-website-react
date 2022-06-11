@@ -9,13 +9,10 @@ import HowItWorks from './HowItWorks'
 import WhatMakesAiDifferent from './what-makes-ai-different/WhatMakesAiDifferent'
 
 const MainHome = ({ regFormRef, learnMoreRef }) => {
-  const startRef = useRef()
-  useEffect(() => {
-    startRef.current.scrollIntoView({ behavior: 'smooth' })
-  }, [])
+
   return (
     <>
-      <div ref={startRef}>
+      <div>
         <LandingSection learnMoreRef={learnMoreRef} />
       </div>
       <PlatformDesc />

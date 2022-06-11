@@ -7,7 +7,7 @@ import logo from '../assets/AI-powered-logo-navbar.png'
 // navigate
 import { useNavigate, useLocation } from 'react-router-dom'
 
-const Navbar = ({ regFormRef }) => {
+const Navbar = ({ regFormRef, startRef }) => {
   const [size, setSize] = useState('large')
   const [isOutOfLanding, setIsOutOfLanding] = useState(false)
   const top = useRef()
@@ -55,72 +55,74 @@ const Navbar = ({ regFormRef }) => {
     navigate('/admin-login')
   }
   return (
-    <div className='shadow-sm py-3' ref={top}>
-      {location.pathname === '/' ? (
-        <Button
-          onClick={() => scrollToSection(top)}
-          size={size}
-          shape='round'
-          className={`text-light titillium-400 px-4 border-0`}
-          style={{
-            background: '#40B452',
-            position: 'fixed',
-            bottom: '3rem',
-            right: windowDimension.winWidth < 990 ? '50%' : '3rem',
-            transform:
-              windowDimension.winWidth < 990 ? 'translate(50%, 0)' : '',
-            zIndex: '4',
-          }}
-        >
-          <span className='me-2 pb-4'>
-            <CaretUpOutlined />
-          </span>
-          Back to Top
-        </Button>
-      ) : (
-        ''
-      )}
+    <div ref={startRef}>
+      <div className='shadow-sm py-3' ref={top}>
+        {location.pathname === '/' ? (
+          <Button
+            onClick={() => scrollToSection(top)}
+            size={size}
+            shape='round'
+            className={`text-light titillium-400 px-4 border-0`}
+            style={{
+              background: '#40B452',
+              position: 'fixed',
+              bottom: '3rem',
+              right: windowDimension.winWidth < 990 ? '50%' : '3rem',
+              transform:
+                windowDimension.winWidth < 990 ? 'translate(50%, 0)' : '',
+              zIndex: '4',
+            }}
+          >
+            <span className='me-2 pb-4'>
+              <CaretUpOutlined />
+            </span>
+            Back to Top
+          </Button>
+        ) : (
+          ''
+        )}
 
-      <Container>
-        <div className='d-flex justify-content-between align-items-center'>
-          <div onClick={() => navigate('/')}>
-            <div className='col-7 col-md-5 col-lg-4 col-xl-3'>
-              <img src={logo} className='w-100 brand h-100' alt='logo' />
+        <Container>
+          <div className='d-flex justify-content-between align-items-center'>
+            <div onClick={() => navigate('/')}>
+              <div className='col-7 col-md-5 col-lg-4 col-xl-3'>
+                <img src={logo} className='w-100 brand h-100' alt='logo' />
+              </div>
             </div>
-          </div>
-          {location.pathname === '/' ? (
-            <Button
-              onClick={() => scrollToSection(regFormRef)}
-              className='titillium-400 px-4'
-              type='primary'
-              shape='round'
-              // icon={<FileDoneOutlined />}
-              size={size}
-              style={{ background: '#40B452', border: 'none' }}
-            >
-              Register
-            </Button>
-          ) : (
-            ''
-          )}
+            {location.pathname === '/' ? (
+              <Button
+                onClick={() => scrollToSection(regFormRef)}
+                className='titillium-400 px-4'
+                type='primary'
+                shape='round'
+                // icon={<FileDoneOutlined />}
+                size={size}
+                style={{ background: '#40B452', border: 'none' }}
+              >
+                Register
+              </Button>
+            ) : (
+              ''
+            )}
 
-          {location.pathname === '/admin' ? (
-            <Button
-              onClick={logoutHandler}
-              className='titillium-400 px-4'
-              type='primary'
-              shape='round'
-              // icon={<FileDoneOutlined />}
-              size={size}
-              style={{ background: '#40B452', border: 'none' }}
-            >
-              Logout
-            </Button>
-          ) : (
-            ''
-          )}
-        </div>
-      </Container>
+            {location.pathname === '/admin' ? (
+              <Button
+                onClick={logoutHandler}
+                className='titillium-400 px-4'
+                type='primary'
+                shape='round'
+                // icon={<FileDoneOutlined />}
+                size={size}
+                style={{ background: '#40B452', border: 'none' }}
+              >
+                Logout
+              </Button>
+            ) : (
+              ''
+            )}
+          </div>
+        </Container>
+      </div>
     </div>
   )
 }

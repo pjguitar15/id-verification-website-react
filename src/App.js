@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.min.css'
 import './App.css'
@@ -17,16 +17,20 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 function App() {
   const regFormRef = useRef()
   const learnMoreRef = useRef()
+  const startRef = useRef()
+  useEffect(() => {
+    startRef.current.scrollIntoView({ behavior: 'smooth' })
+  }, [])
   return (
     <>
       <Router>
         <RegFormProvider>
-          <Navbar regFormRef={regFormRef} />
+          <Navbar startRef={startRef} regFormRef={regFormRef} />
           <Routes>
             <Route path='/' element={<MainHome learnMoreRef={learnMoreRef} regFormRef={regFormRef} />} />
             <Route path='/admin' element={<AdminPanel />} />
             <Route path='/admin-login' element={<Login />} />
-            <Route path='/payment' element={<ProcessPage />} />
+            <Route path='/purchase-verification' element={<ProcessPage />} />
           </Routes>
           <Footer />
         </RegFormProvider>
