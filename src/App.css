@@ -65,3 +65,11 @@
   /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
   margin-left: 10px;
 }
+
+.selfie-button {
+  border: solid 1px grey;
+  border-style: dashed;
+  padding: 0 30px;
+  padding-top: 18px;
+  padding-bottom: 24px;
+}

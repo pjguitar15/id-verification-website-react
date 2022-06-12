@@ -1,11 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Button } from 'antd'
-import UploadComponent from '../../components/UploadComponent'
+import SelfieModal from '../../components/SefieModal'
+import { LoadingOutlined, PlusOutlined, CheckOutlined } from '@ant-design/icons'
+import AntdSpinner from '../../components/AntdSpinner'
 
 const SelfieVerification = ({ blurred, continueButtonHandler }) => {
+  const [visible, setVisible] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
+  const [scanMessage, setScanMessage] = useState('')
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [imgSrc, setImgSrc] = useState(null)
+  const loadImgRef = useRef()
+  useEffect(() => {
+    setVisible(false)
+    loadImgRef.current.scrollIntoView({ behavior: 'smooth' })
+    if (imgSrc) {
+      setIsProcessing(true)
+      setScanMessage('Scanning image...')
+      setTimeout(() => {
+        setScanMessage('Please wait for a moment...')
+      }, 5000)
+      setTimeout(() => {
+        setScanMessage('Processing done. Selfie Verification completed!')
+      }, 10000)
+      setTimeout(() => {
+        setScanMessage('Process complete. Proceed to ID verification.')
+        setIsProcessing(false)
+      }, 13000)
+    }
+  }, [imgSrc])
   return (
     <div>
+      <SelfieModal
+        imgSrc={imgSrc}
+        setImgSrc={setImgSrc}
+        visible={visible}
+        setVisible={setVisible}
+      />
       <h5 className='mb-3'>Take a selfie</h5>
       <hr />
       <h6>Example</h6>
@@ -72,18 +103,55 @@ const SelfieVerification = ({ blurred, continueButtonHandler }) => {
           Do not hide or alter parts of your face (No hats/beauty
           images/filters/headgear)
         </p>
-        <p className='mt-4 mb-2 fw-bold'>
+        <p className='mt-4 mb-2 fw-bold' ref={loadImgRef}>
           File size must be between 10KB and 5120KB in .jpg/.jpeg/.png format.
         </p>
       </div>
-      <UploadComponent imageUrl={imageUrl} setImageUrl={setImageUrl} />
-      <div className='small text-muted rubik-400 mt-3'>
-        Button is disabled. Please complete the selfie process first.
-      </div>
+      {/* Insert selfie modal button here */}
+      {imgSrc ? (
+        <div className='col-8 mb-3'>
+          <img
+            className='w-100 h-100'
+            style={{ objectFit: 'cover' }}
+            src={imgSrc}
+            alt='captured'
+          />
+        </div>
+      ) : (
+        <button onClick={() => setVisible(true)} className='selfie-button'>
+          <PlusOutlined className='m-0' />
+        </button>
+      )}
+
+      {!imgSrc ? (
+        <div className='small text-muted rubik-400 mt-3'>
+          Button is disabled. Please complete the selfie process first.
+        </div>
+      ) : (
+        ''
+      )}
+      {/* Image scanning here */}
+      {isProcessing ? (
+        <div className='d-flex'>
+          {scanMessage !== 'Processing done. Selfie Verification completed!' ? (
+            <AntdSpinner />
+          ) : (
+            <div className='text-success'>
+              <CheckOutlined />
+            </div>
+          )}
+          <h6 className='ms-2'>{scanMessage}</h6>
+        </div>
+      ) : (
+        ''
+      )}
+
       <Button
-        disabled={!imageUrl}
+        disabled={
+          scanMessage !== 'Process complete. Proceed to ID verification.'
+        }
         onClick={continueButtonHandler}
-        className='titillium-400 px-4'
+        className='titillium-400 px-4 mt-2'
         type='primary'
         shape='round'
         // icon={<FileDoneOutlined />}
