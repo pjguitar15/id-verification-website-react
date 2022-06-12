@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Container } from 'react-bootstrap'
 import { Button } from 'antd'
 
-const Payment = ({ value, cancelClick, setIsStepOneDone }) => {
+const Payment = ({ cancelClick, setIsStepTwoDone }) => {
   const [localStorageItems, setLocalStorageItems] = useState({})
   useEffect(() => {
     const firstName = localStorage.getItem('firstName')
@@ -21,7 +21,7 @@ const Payment = ({ value, cancelClick, setIsStepOneDone }) => {
     })
   }, [])
   const payHandler = () => {
-    setIsStepOneDone(true)
+    setIsStepTwoDone(true)
   }
   return (
     <Container>

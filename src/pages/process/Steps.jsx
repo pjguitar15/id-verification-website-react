@@ -39,9 +39,9 @@ const Steps = ({
     <div className='mb-5'>
       <Container>
         <div className='d-flex align-items-center'>
-          <StepsRound isFocused={stepOne} step={'1'} label={'Pay'} />
-          <StepsRound isFocused={stepTwo} step={'2'} label={'Receipt'} />
-          <StepsRound isFocused={stepThree} step={'3'} label={'Verify'} />
+          <StepsRound isFocused={stepOne} step={'1'} label={'Verify'} />
+          <StepsRound isFocused={stepTwo} step={'2'} label={'Pay'} />
+          <StepsRound isFocused={stepThree} step={'3'} label={'Receipt'} />
           <StepsRound
             isFocused={stepFour}
             step={'4'}

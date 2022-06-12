@@ -2,9 +2,9 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import { Button } from 'antd'
 
-const Receipt = ({ setIsStepTwoDone }) => {
+const Receipt = ({ setIsStepThreeDone }) => {
   const nextStepHandler = () => {
-    setIsStepTwoDone(true)
+    setIsStepThreeDone(true)
   }
   return (
     <div>

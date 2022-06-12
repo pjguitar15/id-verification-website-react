@@ -3,12 +3,12 @@ import { Container } from 'react-bootstrap'
 import IdVerification from './IdVerification'
 import SelfieVerification from './SelfieVerification'
 
-const Verify = ({ setIsStepThreeDone }) => {
+const Verify = ({ setIsStepOneDone }) => {
   const [blurred, setBlurred] = useState(false)
   const [isSelfieDone, setIsSelfieDone] = useState(false)
   const startRef = useRef()
   const nextStepHandler = () => {
-    setIsStepThreeDone(true)
+    setIsStepOneDone(true)
   }
   useEffect(() => {
     setTimeout(() => setBlurred(true), 1000)

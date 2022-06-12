@@ -28,7 +28,7 @@ const ProcessPage = () => {
 
   useEffect(() => {
     startRef.current.scrollIntoView({ behavior: 'smooth' })
-  }, [])
+  }, [isStepOneDone, isStepTwoDone, isStepThreeDone])
 
   return (
     <div className='py-5' ref={startRef}>
@@ -38,22 +38,18 @@ const ProcessPage = () => {
         isStepThreeDone={isStepThreeDone}
         isLastStepDone={isLastStepDone}
       />
-      {!isStepOneDone ? (
+      {!isStepOneDone ? <Verify setIsStepOneDone={setIsStepOneDone} /> : ''}
+      {!isStepTwoDone && isStepOneDone ? (
         <Payment
-          setIsStepOneDone={setIsStepOneDone}
+          setIsStepTwoDone={setIsStepTwoDone}
           value={value}
           cancelClick={cancelClick}
         />
       ) : (
         ''
       )}
-      {!isStepTwoDone && isStepOneDone ? (
-        <Receipt setIsStepTwoDone={setIsStepTwoDone} />
-      ) : (
-        ''
-      )}
       {!isStepThreeDone && isStepTwoDone ? (
-        <Verify setIsStepThreeDone={setIsStepThreeDone} />
+        <Receipt setIsStepThreeDone={setIsStepThreeDone} t />
       ) : (
         ''
       )}
