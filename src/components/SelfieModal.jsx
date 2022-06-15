@@ -12,11 +12,22 @@ const SelfieModal = ({
   setImgSrc,
   setImageLoading,
   imageLoading,
+  title,
 }) => {
   const [deviceId, setDeviceId] = React.useState({})
   const [devices, setDevices] = React.useState([])
   const [selectedDeviceId, setSelectedDeviceId] = useState('')
-  //   screenshot states
+  const [windowDimension, detectHW] = useState({
+    winWidth: window.innerWidth,
+    winHeight: window.innerHeight,
+  })
+
+  const detectSize = () => {
+    detectHW({
+      winWidth: window.innerWidth,
+      winHeight: window.innerHeight,
+    })
+  }
 
   const webcamRef = useRef(null)
 
@@ -64,7 +75,7 @@ const SelfieModal = ({
   return (
     <>
       <Modal
-        title='Selfie Verification'
+        title={title}
         centered
         visible={visible}
         // onOk={() => setVisible(false)}
@@ -72,20 +83,26 @@ const SelfieModal = ({
         footer={null}
         width={800}
       >
-        {/* devices selector */}
-        <div className='small text-muted mb-1'>Please select a device</div>
-        <div className='col-lg-5'>
-          <Form.Select
-            className='mb-3'
-            onChange={(e) => setSelectedDeviceId(e.target.value)}
-          >
-            {devices.map((device, key) => (
-              <option value={device.deviceId} key={key}>
-                {device.label}
-              </option>
-            ))}
-          </Form.Select>
-        </div>
+        {windowDimension.winWidth > 990 ? (
+          <>
+            {/* devices selector */}
+            <div className='small text-muted mb-1'>Please select a device</div>
+            <div className='col-lg-5'>
+              <Form.Select
+                className='mb-3'
+                onChange={(e) => setSelectedDeviceId(e.target.value)}
+              >
+                {devices.map((device, key) => (
+                  <option value={device.deviceId} key={key}>
+                    {device.label}
+                  </option>
+                ))}
+              </Form.Select>
+            </div>
+          </>
+        ) : (
+          ''
+        )}
         {imgSrc ? (
           <div className='col-12'>
             <img

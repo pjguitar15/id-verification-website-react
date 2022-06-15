@@ -85,6 +85,7 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
   return (
     <div>
       <SelfieModal
+        title='ID Verification'
         imageLoading={imageLoading}
         setImageLoading={setImageLoading}
         imgSrc={imgSrc}

@@ -29,11 +29,11 @@ const SelfieVerification = ({ blurred, continueButtonHandler }) => {
         setIsProcessing(false)
       }, 13000)
     }
-
   }, [imgSrc])
   return (
     <div>
       <SelfieModal
+        title='Selfie Verification'
         imageLoading={imageLoading}
         setImageLoading={setImageLoading}
         imgSrc={imgSrc}
