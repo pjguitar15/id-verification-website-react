@@ -46,7 +46,7 @@ const SelfieModal = ({
           faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
         ]).then(() => {
           if (visible) {
-            // console.log('INITIALIZED')
+            console.log('INITIALIZED')
             navigator.getUserMedia(
               {
                 video: {},
@@ -105,7 +105,7 @@ const SelfieModal = ({
         faceapi.draw.drawDetections(canvasRef.current, resizedDetections)
         faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections)
         setDetectionScore(detections)
-      }, 300)
+      }, 100)
     }
   }
 
@@ -115,12 +115,12 @@ const SelfieModal = ({
         detectionScore.length > 0 &&
         detectionScore[0].detection._score > 0.95
       ) {
-        // console.log('person exist and image clear!')
+        console.log('person exist and image clear!')
         setVisible(false)
-        // console.log('IMAGE CAPTURED')
+        console.log('IMAGE CAPTURED')
         capture()
       } else {
-        // console.log('image not clear')
+        console.log('image not clear')
       }
     }
   }, [detectionScore, initializing])
@@ -129,8 +129,8 @@ const SelfieModal = ({
     if (visible) {
       setVideoWidth(webcamRef.current.clientWidth)
       setVideoHeight(webcamRef.current.clientHeight)
-      // console.log('width: ' + videoWidth)
-      // console.log('height: ' + videoHeight)
+      console.log('width: ' + videoWidth)
+      console.log('height: ' + videoHeight)
     }
   }, [visible])
 
@@ -151,16 +151,22 @@ const SelfieModal = ({
     setImageLoading(true)
     var ctx = canvasRef.current.getContext('2d')
     var img = new Image()
-    ctx.drawImage(webcamRef.current, 0, 0, videoWidth, videoHeight)
+    ctx.drawImage(
+      webcamRef.current,
+      0,
+      0,
+      webcamRef.current.clientWidth,
+      webcamRef.current.clientHeight
+    )
     img.src = canvasRef.current.toDataURL('image/png')
-    img.width = videoWidth
-    img.height = videoHeight
+    img.width = webcamRef.current.clientWidth
+    img.height = webcamRef.current.clientHeight
 
     // img.width = 750
     // img.height = 400
 
-    // console.log('img width: ' + img.width)
-    // console.log('img height: ' + img.height)
+    console.log('img width: ' + img.width)
+    console.log('img height: ' + img.height)
 
     // how to use axios. this is inside uploadImage function
     const formData = new FormData()
@@ -173,7 +179,8 @@ const SelfieModal = ({
       formData
     )
       .then((res) => setImgSrc(res.data.url))
-      .then(() => setImageLoading(false)) // res.data.url takes the image url
+      .then(() => setImageLoading(false))
+    // res.data.url takes the image url
   }, [webcamRef, imgSrc])
 
   const handleDevices = React.useCallback(
@@ -279,9 +286,7 @@ const SelfieModal = ({
                     width='100%'
                     onPlay={visible ? handleVideoOnPlay : ''}
                   ></video>
-                  <div
-                  // style={{ position: 'absolute', top: '0', left: '0' }}
-                  >
+                  <div style={{ position: 'absolute', top: '0', left: '0' }}>
                     <canvas
                       height={videoHeight}
                       width={videoWidth}
@@ -296,6 +301,8 @@ const SelfieModal = ({
               </div>
             ))
         )}
+
+        {}
       </Modal>
     </>
   )
