@@ -30,7 +30,6 @@ const SelfieVerification = ({ blurred, continueButtonHandler }) => {
       }, 13000)
     }
 
-    console.log(imgSrc)
   }, [imgSrc])
   return (
     <div>

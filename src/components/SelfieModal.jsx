@@ -23,7 +23,6 @@ const SelfieModal = ({
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot()
     setImageLoading(true)
-    console.log('IMAGE CAPTURED')
     // how to use axios. this is inside uploadImage function
     const formData = new FormData()
     formData.append('file', imageSrc) // selectedImage is a state

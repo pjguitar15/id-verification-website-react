@@ -25,7 +25,6 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot()
     setImageLoading(true)
-    console.log('IMAGE CAPTURED')
     // how to use axios. this is inside uploadImage function
     const formData = new FormData()
     formData.append('file', imageSrc) // selectedImage is a state
@@ -81,8 +80,6 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
         setIsProcessing(false)
       }, 13000)
     }
-
-    console.log(imgSrc)
   }, [imgSrc])
 
   return (
