@@ -16,7 +16,10 @@ const Verify = ({ setIsStepOneDone }) => {
 
   const continueButtonHandler = () => {
     setIsSelfieDone(true)
-    startRef.current.scrollIntoView({ behavior: 'smooth' })
+    // not scrolling
+    setTimeout(() => {
+      startRef.current.scrollIntoView({ behavior: 'smooth' })
+    }, 1000)
   }
   return (
     <div ref={startRef}>
