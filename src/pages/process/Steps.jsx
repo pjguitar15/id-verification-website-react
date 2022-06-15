@@ -13,7 +13,6 @@ const Steps = ({
   const [stepThree, setStepThree] = useState(false)
   const [stepFour, setStepFour] = useState(false)
   useEffect(() => {
-    console.log('isStepOneRendered')
     if (isStepOneDone) {
       setStepOne(false)
       setStepTwo(true)
@@ -21,7 +20,6 @@ const Steps = ({
   }, [isStepOneDone])
 
   useEffect(() => {
-    console.log('isStepOneRendered')
     if (isStepTwoDone) {
       setStepTwo(false)
       setStepThree(true)
@@ -29,7 +27,6 @@ const Steps = ({
   }, [isStepTwoDone])
 
   useEffect(() => {
-    console.log('isStepOneRendered')
     if (isStepThreeDone) {
       setStepThree(false)
       setStepFour(true)

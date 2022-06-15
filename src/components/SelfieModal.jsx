@@ -285,7 +285,9 @@ const SelfieModal = ({
                     width='100%'
                     onPlay={visible ? handleVideoOnPlay : ''}
                   ></video>
-                  <div style={{ position: 'absolute', top: '0', left: '0' }}>
+                  <div
+                  // style={{ position: 'absolute', top: '0', left: '0' }}
+                  >
                     <canvas
                       height={videoHeight}
                       width={videoWidth}
@@ -300,8 +302,6 @@ const SelfieModal = ({
               </div>
             ))
         )}
-
-        {}
       </Modal>
     </>
   )
