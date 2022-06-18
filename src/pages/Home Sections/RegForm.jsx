@@ -21,7 +21,7 @@ const RegForm = () => {
     navigate('/purchase-verification')
   }
   return (
-    <div className='bg-light p-5 rounded shadow-sm'>
+    <div className='bg-light p-4 p-lg-5 rounded shadow-sm'>
       <h2 className='titillium-600'>Register</h2>
       <Form onSubmit={submitForm}>
         <Form.Group className='my-3'>

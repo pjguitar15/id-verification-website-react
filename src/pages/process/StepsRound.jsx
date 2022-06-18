@@ -6,10 +6,9 @@ const StepsRound = ({ step, label, isLast, isFocused }) => {
       {/* round */}
       <div>
         <div
-          className={`${
-            isFocused ? 'bg-success text-white' : 'bg-light border'
-          }`}
+          className={`${isFocused ? 'text-white' : 'bg-light border'}`}
           style={{
+            background: '#2EA76C',
             height: '4rem',
             width: '4rem',
             borderRadius: '50%',

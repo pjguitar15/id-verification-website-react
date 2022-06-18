@@ -12,7 +12,7 @@ const Context = React.createContext({
 const Payment = ({ cancelClick, setIsStepTwoDone }) => {
   const [localStorageItems, setLocalStorageItems] = useState({})
   const [seconds, setSeconds] = useState(59)
-  const [minutes, setMinutes] = useState(5)
+  const [minutes, setMinutes] = useState(9)
   const [usdAmount, setUsdAmount] = useState(0)
   const [toggle, setToggle] = useState(false)
   const [api, contextHolder] = notification.useNotification()
@@ -99,7 +99,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
       if (minutes > -1 && !(minutes === 0 && seconds === 0)) {
         if (seconds > 1) {
           setSeconds(seconds - 1)
-          // Now payments get request
+          // Now payments GET request
           if (paymentId) {
             axios
               .get(
@@ -111,6 +111,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
                 }
               )
               .then((res) => {
+                // if status is finished, set status state to "finished"
                 if (res.data.payment_status !== 'finished') {
                   // displays all currency
                   console.log('GET PAYMENT STATUS RESPONSE: ')
@@ -118,6 +119,8 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
                   setStatus(res.data.payment_status)
                 } else {
                   setStatus('finished')
+                  // If status is finished then timer should stop
+                  clearInterval(myInterval)
                 }
               })
           }
@@ -170,7 +173,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
           >
             Time left to pay: {minutes}:
             {seconds === 60 || seconds === 0 ? '00' : seconds}
-            {seconds.toString().length === 1 ? '0' : ''}
+            {seconds.toString().length === 1 && seconds !== 0 ? '0' : ''}
             {}
             {minutes === 0 && seconds === 0 ? '(Session Expired)' : ''}
           </p>

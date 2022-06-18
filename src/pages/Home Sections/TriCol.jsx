@@ -20,7 +20,7 @@ const TriCol = () => {
         <div className='row'>
           <div
             // data-aos='fade-right'
-            className='col-lg-4 p-2 text-center'
+            className='col-md-4 p-2 text-center'
           >
             <div
               className='bg-light mx-auto mb-4 d-flex align-items-center justify-content-center shadow-sm'
@@ -36,7 +36,7 @@ const TriCol = () => {
           </div>{' '}
           <div
             // data-aos='fade-up'
-            className='col-lg-4 p-2 text-center'
+            className='col-md-4 p-2 text-center'
           >
             <div
               className='bg-light mx-auto mb-4 d-flex align-items-center justify-content-center shadow-sm'
@@ -52,7 +52,7 @@ const TriCol = () => {
           </div>{' '}
           <div
             // data-aos='fade-left'
-            className='col-lg-4 p-2 text-center'
+            className='col-md-4 p-2 text-center'
           >
             <div
               className='bg-light mx-auto mb-4 d-flex align-items-center justify-content-center shadow-sm'

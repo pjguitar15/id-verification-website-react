@@ -9,7 +9,7 @@ const Receipt = ({ setIsStepThreeDone }) => {
   return (
     <div>
       <Container>
-        <div className='col-md-8 mx-auto'>
+        <div className='col-md-12 mx-auto bg-light p-5 shadow-sm border'>
           <div className='d-flex justify-content-between mb-4'>
             <div>
               <h6>Order #12345</h6>
@@ -23,6 +23,14 @@ const Receipt = ({ setIsStepThreeDone }) => {
             </div>
           </div>
           <hr />
+          <p className='rubik-400 text-muted text-center'>
+            You have just purchased{' '}
+            <span className='fw-bold'>1 x AI-powered ID Verification</span> with
+            an exact amount of 20 USDT. Thank you for choosing Ai-powered!
+          </p>
+          <p className='rubik-400 text-muted text-center'>
+            We are now verifying your ID.
+          </p>
           <div className='text-center mt-5'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -38,6 +46,12 @@ const Receipt = ({ setIsStepThreeDone }) => {
             <h2 className='text-success rubik-400 mt-4'>Paid and Confirmed</h2>
           </div>
           <hr className='mt-5' />
+
+          <p className='rubik-400 text-muted text-center'>
+            Your recepit has been sent to your email. If you encountered any
+            problem, please contact us at email@email.com or call us to our
+            contact number.
+          </p>
           <Button
             onClick={nextStepHandler}
             className='titillium-400 px-4 mt-4'

@@ -3,7 +3,7 @@ import React from 'react'
 const AIFeature = (props) => {
   return (
     <div className='row py-4'>
-      <div className='col-lg-6 d-flex align-items-center'>
+      <div className='col-md-6 d-flex align-items-center'>
         <div>
           <h1 className='titillium-700'>{props.title}</h1>
           <p
@@ -14,7 +14,7 @@ const AIFeature = (props) => {
           </p>
         </div>
       </div>
-      <div className='col-lg-6 d-flex justify-content-end'>
+      <div className='col-md-6 d-flex justify-content-end'>
         <div className='col-12 col-lg-9'>
           <img
             src={props.img}

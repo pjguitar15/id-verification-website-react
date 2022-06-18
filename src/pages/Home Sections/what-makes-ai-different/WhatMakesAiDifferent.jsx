@@ -57,7 +57,7 @@ const WhatMakesAiDifferent = () => {
           // data-aos='fade-down'
           // data-aos-delay='50'
           // data-aos-duration='1000'
-          className='d-block d-lg-none'
+          className='d-block d-md-none'
         >
           <AIFeature
             content={secondContent.content}
@@ -70,7 +70,7 @@ const WhatMakesAiDifferent = () => {
           // data-aos='fade-down'
           // data-aos-delay='50'
           // data-aos-duration='1000'
-          className='d-none d-lg-block'
+          className='d-none d-md-block'
         >
           <AIFeatureReversed
             content={secondContent.content}
