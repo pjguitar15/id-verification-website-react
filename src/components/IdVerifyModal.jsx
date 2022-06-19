@@ -175,23 +175,25 @@ const IdVerifyModal = ({
     //         setCountryCode(res.data[0].ccn3)
     //         setPassportNum(passportNumber)
     //         setBirthday(resultBirthday)
-    alert(
-      firstName +
-        ', ' +
-        lastName +
-        ', ' +
-        alpha3 +
-        ', ' +
-        country +
-        ', ' +
-        flag +
-        ', ' +
-        countryCode +
-        ', ' +
-        passportNum +
-        ', ' +
-        birthday
-    )
+    if (firstName) {
+      alert(
+        firstName +
+          ', ' +
+          lastName +
+          ', ' +
+          alpha3 +
+          ', ' +
+          country +
+          ', ' +
+          flag +
+          ', ' +
+          countryCode +
+          ', ' +
+          passportNum +
+          ', ' +
+          birthday
+      )
+    }
   }, [firstName])
 
   return (
