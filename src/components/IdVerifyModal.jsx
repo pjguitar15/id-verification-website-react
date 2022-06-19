@@ -4,6 +4,7 @@ import Webcam from 'react-webcam'
 import { Form } from 'react-bootstrap'
 import { PlusOutlined } from '@ant-design/icons'
 import Axios from 'axios'
+import Tesseract from 'tesseract.js'
 
 const IdVerifyModal = ({
   visible,
@@ -22,6 +23,78 @@ const IdVerifyModal = ({
     winHeight: window.innerHeight,
   })
 
+  // read text from passport
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [alpha3, setAlpha3] = useState('')
+  const [country, setCountry] = useState('')
+  const [flag, setFlag] = useState('')
+  const [countryCode, setCountryCode] = useState('')
+  const [passportNum, setPassportNum] = useState('')
+  const [birthday, setBirthday] = useState('')
+
+  // Capture code
+  // const captured = webcamRef.current.getScreenshot()
+  //   setImgSrc(captured)
+  //   console.log(webcamRef.current.getBoundingclientRect)
+
+  const tesseractRead = () => {
+    console.log('scanning')
+    if (imgSrc) {
+      Tesseract.recognize(imgSrc).then(({ data: { text } }) => {
+        const split = text.split('\n')
+        console.log(split)
+        const splittedText = split[0]
+        const nextLine = split[1]
+        console.log(split)
+        // extract country
+        const resultCountry = splittedText.slice(2, 5)
+        const startOfLastName = splittedText.slice(5)
+        const resultLastName = startOfLastName.slice(
+          0,
+          startOfLastName.indexOf('<')
+        )
+        const startOfFirstNameIndex =
+          resultCountry.length + resultLastName.length + 4
+        const startOfFirstName = splittedText.slice(startOfFirstNameIndex)
+        const resultFirstName = startOfFirstName.slice(
+          0,
+          startOfFirstName.indexOf('<')
+        )
+        const passportNumber = nextLine.slice(
+          0,
+          nextLine.indexOf(resultCountry)
+        )
+        const startOfDateIndex = passportNumber.length + resultCountry.length
+        const startOfDate = nextLine.slice(startOfDateIndex)
+        const resultBirthday =
+          startOfDate.slice(0, 2) +
+          '-' +
+          startOfDate.slice(2, 4) +
+          '-' +
+          startOfDate.slice(4, 6)
+        const startOfExpiryIndexSearch =
+          passportNumber.length + resultCountry.length + resultBirthday.length
+        console.log(nextLine.slice(startOfExpiryIndexSearch))
+        Axios.get(`https://restcountries.com/v3.1/alpha?codes=${resultCountry}`)
+          .then((res) => {
+            setFirstName(resultFirstName)
+            setLastName(resultLastName)
+            setAlpha3(resultCountry)
+            setCountry(res.data[0].name.common)
+            setFlag(res.data[0].flags.png)
+            setCountryCode(res.data[0].ccn3)
+            setPassportNum(passportNumber)
+            setBirthday(resultBirthday)
+          })
+          .then((error) => {
+            console.log(error)
+          })
+        console.log('scanning done')
+      })
+    }
+  }
+
   const detectSize = () => {
     detectHW({
       winWidth: window.innerWidth,
@@ -30,6 +103,7 @@ const IdVerifyModal = ({
   }
 
   const webcamRef = useRef(null)
+  const widthHeightRef = useRef()
 
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot()
@@ -44,11 +118,31 @@ const IdVerifyModal = ({
       `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
       formData
     )
-      .then((res) => setImgSrc(res.data.url))
+      .then((res) => {
+        const firstPartOfUrl = res.data.url.slice(
+          0,
+          res.data.url.indexOf('load/') + 5
+        )
+        const newHeightValue = 0.3 * widthHeightRef.current.clientHeight
+        const cropUrl = `c_crop,h_${Math.floor(newHeightValue)},w_${
+          widthHeightRef.current.clientWidth
+        }`
+        const lastPartOfUrl = res.data.url.slice(
+          res.data.url.indexOf('load/') + 4
+        )
+        setImgSrc(firstPartOfUrl + cropUrl + lastPartOfUrl)
+        console.log(firstPartOfUrl + cropUrl + lastPartOfUrl)
+      })
       .then(() => setImageLoading(false))
 
-    setImgSrc(imageSrc)
+    // setImgSrc(imageSrc)
   }, [webcamRef, setImgSrc])
+
+  useEffect(() => {
+    if (imgSrc) {
+      tesseractRead()
+    }
+  }, [imgSrc])
 
   const handleDevices = React.useCallback(
     (mediaDevices) =>
@@ -71,6 +165,34 @@ const IdVerifyModal = ({
       setSelectedDeviceId(devices[1].deviceId)
     }
   }, [devices])
+
+  useEffect(() => {
+    // setFirstName(resultFirstName)
+    //         setLastName(resultLastName)
+    //         setAlpha3(resultCountry)
+    //         setCountry(res.data[0].name.common)
+    //         setFlag(res.data[0].flags.png)
+    //         setCountryCode(res.data[0].ccn3)
+    //         setPassportNum(passportNumber)
+    //         setBirthday(resultBirthday)
+    alert(
+      firstName +
+        ', ' +
+        lastName +
+        ', ' +
+        alpha3 +
+        ', ' +
+        country +
+        ', ' +
+        flag +
+        ', ' +
+        countryCode +
+        ', ' +
+        passportNum +
+        ', ' +
+        birthday
+    )
+  }, [firstName])
 
   return (
     <>
@@ -117,14 +239,38 @@ const IdVerifyModal = ({
             .filter((item) => item.deviceId === selectedDeviceId)
             .map((item, index) => (
               <div key={index}>
-                <Webcam
-                  ref={webcamRef}
-                  audio={false}
-                  height={'auto'}
-                  screenshotFormat='image/jpeg'
-                  width={'100%'}
-                  videoConstraints={{ deviceId: item.deviceId }}
-                />
+                <div ref={widthHeightRef} style={{ position: 'relative' }}>
+                  <div
+                    className='bg-dark'
+                    style={{
+                      position: 'absolute',
+                      top: '0',
+                      left: '0',
+                      height: '35%',
+                      width: '100%',
+                      opacity: '0.7',
+                    }}
+                  ></div>
+                  <div
+                    className='bg-dark'
+                    style={{
+                      position: 'absolute',
+                      bottom: '0',
+                      left: '0',
+                      height: '35%',
+                      width: '100%',
+                      opacity: '0.7',
+                    }}
+                  ></div>
+                  <Webcam
+                    ref={webcamRef}
+                    audio={false}
+                    height={'auto'}
+                    screenshotFormat='image/jpeg'
+                    width={'100%'}
+                    videoConstraints={{ deviceId: item.deviceId }}
+                  />
+                </div>
                 <div className='mt-2'>
                   <Button onClick={capture}>Capture photo</Button>
                 </div>

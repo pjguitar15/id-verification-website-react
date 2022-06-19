@@ -44,7 +44,10 @@ const SelfieModal = ({
       `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
       formData
     )
-      .then((res) => setImgSrc(res.data.url))
+      .then((res) => {
+        localStorage.setItem('selfieImg', res.data.url)
+        setImgSrc(res.data.url)
+      })
       .then(() => setImageLoading(false))
 
     setImgSrc(imageSrc)

@@ -6,6 +6,7 @@ import SelfieModal from '../../components/SelfieModal'
 import { PlusOutlined, CheckOutlined } from '@ant-design/icons'
 import Axios from 'axios'
 import IdVerifyModal from '../../components/IdVerifyModal'
+import passport from '../../assets/passport.jpg'
 
 const IdVerification = ({ blurred, nextStepHandler }) => {
   const [imageUrl, setImageUrl] = useState('')
@@ -101,12 +102,26 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
         <img
           className='w-100 h-100 rounded'
           style={{ objectFit: 'cover', filter: !blurred ? 'blur(8px)' : '' }}
-          src='https://media.istockphoto.com/vectors/driver-license-with-male-photo-identification-or-id-card-template-vector-id1073597286'
+          src={passport}
           alt=''
         />
       </div>
       {/* description */}
       <div className='rubik-400 mt-4'>
+        <p>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='16'
+            height='16'
+            fill='green'
+            className='bi bi-check2 me-2'
+            viewBox='0 0 16 16'
+          >
+            <path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z' />
+          </svg>
+          Take a picture of your passport's mrz code at the bottom of your bio
+          page
+        </p>{' '}
         <p>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -150,7 +165,6 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
           File size must be between 10KB and 5120KB in .jpg/.jpeg/.png format.
         </p>
         {imageLoading ? <AntdSpinner /> : ''}
-
         {/* Insert selfie modal button here */}
         {imgSrc ? (
           <div className='col-8 mb-3'>
@@ -166,7 +180,6 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
             <PlusOutlined className='m-0' />
           </button>
         )}
-
         {!imgSrc ? (
           <div className='small text-muted rubik-400 mt-3'>
             Button is disabled. Please complete the ID Verification process
