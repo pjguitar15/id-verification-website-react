@@ -9,7 +9,7 @@ const Receipt = ({ setIsStepThreeDone }) => {
   return (
     <div>
       <Container>
-        <div className='col-md-12 mx-auto bg-light p-5 shadow-sm border'>
+        <div className='col-md-12 col-lg-9 mx-auto bg-light p-5 shadow-sm border'>
           <div className='d-flex justify-content-between mb-4'>
             <div>
               <h6>Order #12345</h6>

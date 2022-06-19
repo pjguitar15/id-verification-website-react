@@ -1,87 +1,56 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
-import { Space, Table, Tag } from 'antd'
+import { Space, Table, Tag, Modal } from 'antd'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
+import { db } from '../../firebase/firebaseConfig'
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  doc,
+  deleteDoc,
+} from 'firebase/firestore'
+const { confirm } = Modal
 
-const { Column, ColumnGroup } = Table
-const data = [
-  {
-    key: '1',
-    firstName: 'John',
-    lastName: 'Brown',
-    contactNum: '09234567890',
-    email: 'name@email.com',
-    age: 32,
-    address: 'Philippines',
-    tags: ['error'],
-  },
-  {
-    key: '2',
-    firstName: 'Jim',
-    lastName: 'Green',
-    contactNum: '09234567890',
-    email: 'name@email.com',
-    address: 'Philippines',
-    tags: ['error'],
-  },
-  {
-    key: '3',
-    firstName: 'Joe',
-    lastName: 'Black',
-    contactNum: '09234567890',
-    email: 'name@email.com',
-    address: 'Australia',
-    tags: ['paid'],
-  },
-  {
-    key: '4',
-    firstName: 'Joe',
-    lastName: 'Black',
-    contactNum: '09234567890',
-    email: 'name@email.com',
-    address: 'Australia',
-    tags: ['paid'],
-  },
-  {
-    key: '5',
-    firstName: 'Joe',
-    lastName: 'Black',
-    contactNum: '09234567890',
-    email: 'name@email.com',
-    address: 'Australia',
-    tags: ['paid'],
-  },
-  {
-    key: '6',
-    firstName: 'Joe',
-    lastName: 'Black',
-    contactNum: '09234567890',
-    email: 'name@email.com',
-    address: 'Australia',
-    tags: ['paid'],
-  },
-  {
-    key: '7',
-    firstName: 'Joe',
-    lastName: 'Black',
-    contactNum: '09234567890',
-    email: 'name@email.com',
-    address: 'Australia',
-    tags: ['paid'],
-  },
-  {
-    key: '8',
-    firstName: 'Joe',
-    lastName: 'Black',
-    contactNum: '09234567890',
-    email: 'name@email.com',
-    address: 'Australia',
-    tags: ['paid'],
-  },
-]
+const { Column } = Table
 
 const AdminPanel = () => {
+  const [users, setUsers] = useState([])
+  const [data, setData] = useState([])
   const navigate = useNavigate()
+
+  const showDeleteConfirm = (id) => {
+    confirm({
+      title: 'Are you sure delete this item?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'Once deleted, it will be removed completely from the database.',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+
+      onOk() {
+        console.log('OK')
+        deleteItem(id)
+      },
+
+      onCancel() {
+        console.log('Cancel')
+      },
+    })
+  }
+
+  useEffect(() => {
+    const collectionRef = collection(db, 'users')
+    const q = query(collectionRef, orderBy('timestamp', 'desc'))
+    const getData = async () => {
+      const data = await getDocs(q)
+      const mappedData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      setUsers(mappedData)
+    }
+    getData()
+  }, [])
   useEffect(() => {
     let authToken = sessionStorage.getItem('Auth Token')
     if (authToken) {
@@ -89,16 +58,41 @@ const AdminPanel = () => {
     } else {
       navigate('/admin-login')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    const newArr = []
+    users.forEach((item) => {
+      newArr.push({
+        key: item.id,
+        firstName: item.firstName,
+        lastName: item.lastName,
+        contactNum: item.contactNumber,
+        email: item.email,
+        address: item.location,
+        tags: ['paid'],
+      })
+    })
+    setData(newArr)
+  }, [users])
+  const deleteItem = async (id) => {
+    console.log(id)
+    const userDoc = doc(db, 'users', id)
+    await deleteDoc(userDoc)
+
+    // make it look real time
+    const filtered = users.filter((item) => item.id !== id)
+    setUsers(filtered)
+  }
   return (
     <div className='py-5'>
       <Container className='text-center'>
         <h1 className='display-6 titillium-400'>Dashboard</h1>
-        <Table dataSource={data}>
-          <ColumnGroup title='Name'>
-            <Column title='First Name' dataIndex='firstName' key='firstName' />
-            <Column title='Last Name' dataIndex='lastName' key='lastName' />
-          </ColumnGroup>
+        <Table dataSource={data.length > 0 ? data : ''}>
+          <Column title='UID' dataIndex='key' key='key' />
+          <Column title='First Name' dataIndex='firstName' key='firstName' />
+          <Column title='Last Name' dataIndex='lastName' key='lastName' />
           <Column title='Location' dataIndex='address' key='address' />
           <Column title='Contact' dataIndex='contactNum' key='contactNum' />
           <Column title='Email' dataIndex='email' key='email' />
@@ -108,11 +102,16 @@ const AdminPanel = () => {
             key='tags'
             render={(tags) => (
               <>
-                {tags.map((tag) => (
-                  <Tag color={`${tag === 'paid' ? 'green' : 'red'}`} key={tag}>
-                    {tag}
-                  </Tag>
-                ))}
+                {tags
+                  ? tags.map((tag) => (
+                      <Tag
+                        color={`${tag === 'paid' ? 'green' : 'red'}`}
+                        key={tag}
+                      >
+                        {tag}
+                      </Tag>
+                    ))
+                  : ''}
               </>
             )}
           />
@@ -121,7 +120,12 @@ const AdminPanel = () => {
             key='action'
             render={(_, record) => (
               <Space size='middle'>
-                <a className='text-danger'>Delete</a>
+                <a
+                  className='text-danger'
+                  onClick={() => showDeleteConfirm(record.key)}
+                >
+                  Delete
+                </a>
               </Space>
             )}
           />

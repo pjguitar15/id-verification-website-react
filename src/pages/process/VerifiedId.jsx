@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CheckOutlined } from '@ant-design/icons'
 import flag from '../../assets/philippine-flag.png'
 
 const VerifiedId = () => {
   return (
-    <div className='shadow-sm'>
+    <div className='shadow-sm col-lg-8 mx-auto'>
       {/* header */}
       <div
         style={{

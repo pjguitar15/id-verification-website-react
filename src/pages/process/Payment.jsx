@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { Button, notification } from 'antd'
 import qr from '../../assets/qr.png'
 import axios from 'axios'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { db } from '../../firebase/firebaseConfig'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 const Context = React.createContext({
   name: 'Default',
@@ -17,7 +19,8 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
   const [toggle, setToggle] = useState(false)
   const [api, contextHolder] = notification.useNotification()
   const [paymentId, setPaymentId] = useState('')
-  const [status, setStatus] = useState('waiting')
+  // for testing, i changed the state to finished. change it back to waiting once done with testing
+  const [status, setStatus] = useState('finished')
 
   const openNotification = (placement) => {
     api.success({
@@ -140,8 +143,31 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
     }
   })
 
-  const payHandler = () => {
+  const payHandler = async () => {
     setIsStepTwoDone(true)
+    const firstName = localStorage.getItem('firstName')
+    const middleName = localStorage.getItem('middleName')
+    const lastName = localStorage.getItem('lastName')
+    const contactNumber = localStorage.getItem('contactNumber')
+    const email = localStorage.getItem('email')
+    const location = localStorage.getItem('location')
+    const collectionRef = collection(db, 'users')
+    // Add data to firebase
+    await addDoc(collectionRef, {
+      firstName: firstName,
+      middleName: middleName,
+      lastName: lastName,
+      contactNumber: contactNumber,
+      email: email,
+      location: location,
+      timestamp: serverTimestamp(),
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
   return (
     <Context.Provider

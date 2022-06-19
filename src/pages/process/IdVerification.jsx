@@ -5,6 +5,7 @@ import AntdSpinner from '../../components/AntdSpinner'
 import SelfieModal from '../../components/SelfieModal'
 import { PlusOutlined, CheckOutlined } from '@ant-design/icons'
 import Axios from 'axios'
+import IdVerifyModal from '../../components/IdVerifyModal'
 
 const IdVerification = ({ blurred, nextStepHandler }) => {
   const [imageUrl, setImageUrl] = useState('')
@@ -84,7 +85,7 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
 
   return (
     <div>
-      <SelfieModal
+      <IdVerifyModal
         title='ID Verification'
         imageLoading={imageLoading}
         setImageLoading={setImageLoading}

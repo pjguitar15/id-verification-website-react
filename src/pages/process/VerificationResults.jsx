@@ -1,17 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
 import { Button } from 'antd'
-import { useNavigate } from 'react-router-dom'
 import VerifiedId from './VerifiedId'
+import ThankYouModal from '../../components/ThankYouModal'
 
 const VerificationResults = ({ setIsLastStepDone }) => {
-  const navigate = useNavigate()
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const nextStepHandler = () => {
-    setIsLastStepDone(true)
-    navigate('/')
+    setIsModalVisible(true)
   }
   return (
     <div>
+      <ThankYouModal
+        setIsLastStepDone={setIsLastStepDone}
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
       <Container>
         <h2 className='rubik-400 text-center'>You're all set!</h2>
         <p className='text-center text-muted'>
