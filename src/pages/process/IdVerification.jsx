@@ -8,7 +8,7 @@ import testmrz from '../../assets/testmrz.jpg'
 
 const IdVerification = ({ blurred, nextStepHandler }) => {
   const [imageLoading, setImageLoading] = useState(false)
-  const [imgSrc, setImgSrc] = useState(null)
+  const [imgSrc, setImgSrc] = useState('')
   const [visible, setVisible] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [scanMessage, setScanMessage] = useState('')

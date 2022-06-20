@@ -125,7 +125,7 @@ const IdVerifyModal = ({
           0,
           res.data.url.indexOf('load/') + 5
         )
-        const newHeightValue = 0.3 * widthHeightRef.current.clientHeight
+        const newHeightValue = 0.2 * widthHeightRef.current.clientHeight
         const cropUrl = `c_crop,h_${Math.floor(newHeightValue)},w_${
           widthHeightRef.current.clientWidth
         }`
@@ -155,12 +155,6 @@ const IdVerifyModal = ({
   useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then(handleDevices)
   }, [handleDevices])
-
-  const videoConstraints = {
-    width: 1280,
-    height: 720,
-    facingMode: 'user',
-  }
 
   useEffect(() => {
     if (devices.length > 0) {
@@ -220,7 +214,7 @@ const IdVerifyModal = ({
                       position: 'absolute',
                       top: '0',
                       left: '0',
-                      height: '35%',
+                      height: '40%',
                       width: '100%',
                       opacity: '0.7',
                     }}
@@ -231,7 +225,7 @@ const IdVerifyModal = ({
                       position: 'absolute',
                       bottom: '0',
                       left: '0',
-                      height: '35%',
+                      height: '40%',
                       width: '100%',
                       opacity: '0.7',
                     }}
