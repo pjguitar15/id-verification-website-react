@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
-import { Space, Table, Tag, Modal } from 'antd'
+import { Button, Space, Table, Tag, Modal } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebase/firebaseConfig'
@@ -12,6 +12,7 @@ import {
   doc,
   deleteDoc,
 } from 'firebase/firestore'
+import AntdCard from '../../components/AntdCard'
 const { confirm } = Modal
 
 const { Column } = Table
@@ -19,7 +20,20 @@ const { Column } = Table
 const AdminPanel = () => {
   const [users, setUsers] = useState([])
   const [data, setData] = useState([])
+  const [inquiries, setInquiries] = useState([])
+  const [selectedMenu, setSelectedMenu] = useState('dashboard')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const collectionRef = collection(db, 'inquiries')
+    const q = query(collectionRef, orderBy('timestamp', 'desc'))
+    const getData = async () => {
+      const data = await getDocs(q)
+      setInquiries(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    }
+
+    getData()
+  }, [])
 
   const showDeleteConfirm = (id) => {
     confirm({
@@ -87,50 +101,74 @@ const AdminPanel = () => {
   }
   return (
     <div className='py-5'>
-      <Container className='text-center'>
-        <h1 className='display-6 titillium-400'>Dashboard</h1>
-        <Table dataSource={data.length > 0 ? data : ''}>
-          <Column title='UID' dataIndex='key' key='key' />
-          <Column title='First Name' dataIndex='firstName' key='firstName' />
-          <Column title='Last Name' dataIndex='lastName' key='lastName' />
-          <Column title='Location' dataIndex='address' key='address' />
-          <Column title='Contact' dataIndex='contactNum' key='contactNum' />
-          <Column title='Email' dataIndex='email' key='email' />
-          <Column
-            title='Status'
-            dataIndex='tags'
-            key='tags'
-            render={(tags) => (
-              <>
-                {tags
-                  ? tags.map((tag) => (
-                      <Tag
-                        color={`${tag === 'paid' ? 'green' : 'red'}`}
-                        key={tag}
-                      >
-                        {tag}
-                      </Tag>
-                    ))
-                  : ''}
-              </>
-            )}
-          />
-          <Column
-            title='Action'
-            key='action'
-            render={(_, record) => (
-              <Space size='middle'>
-                <a
-                  className='text-danger'
-                  onClick={() => showDeleteConfirm(record.key)}
-                >
-                  Delete
-                </a>
-              </Space>
-            )}
-          />
-        </Table>
+      <Container>
+        <Button onClick={() => setSelectedMenu('dashboard')} className='me-2'>
+          Dashboard
+        </Button>
+        <Button onClick={() => setSelectedMenu('inquiries')}>Inquiries</Button>
       </Container>
+      {selectedMenu === 'inquiries' ? (
+        <Container className='text-center'>
+          <h1 className='display-6 titillium-400'>Inquiries</h1>
+          <div className='row'>
+            {inquiries.map((item, index) => (
+              <div key={index} className='col-sm-6 col-md-4 col-lg-3'>
+                <AntdCard item={item} />
+              </div>
+            ))}
+          </div>
+        </Container>
+      ) : (
+        ''
+      )}
+      {selectedMenu === 'dashboard' ? (
+        <Container className='text-center'>
+          <h1 className='display-6 titillium-400'>Dashboard</h1>
+          <Table dataSource={data.length > 0 ? data : ''}>
+            <Column title='UID' dataIndex='key' key='key' />
+            <Column title='First Name' dataIndex='firstName' key='firstName' />
+            <Column title='Last Name' dataIndex='lastName' key='lastName' />
+            <Column title='Location' dataIndex='address' key='address' />
+            <Column title='Contact' dataIndex='contactNum' key='contactNum' />
+            <Column title='Email' dataIndex='email' key='email' />
+            <Column
+              title='Status'
+              dataIndex='tags'
+              key='tags'
+              render={(tags) => (
+                <>
+                  {tags
+                    ? tags.map((tag) => (
+                        <Tag
+                          color={`${tag === 'paid' ? 'green' : 'red'}`}
+                          key={tag}
+                        >
+                          {tag}
+                        </Tag>
+                      ))
+                    : ''}
+                </>
+              )}
+            />
+            <Column
+              title='Action'
+              key='action'
+              render={(_, record) => (
+                <Space size='middle'>
+                  <a
+                    className='text-danger'
+                    onClick={() => showDeleteConfirm(record.key)}
+                  >
+                    Delete
+                  </a>
+                </Space>
+              )}
+            />
+          </Table>
+        </Container>
+      ) : (
+        ''
+      )}
     </div>
   )
 }

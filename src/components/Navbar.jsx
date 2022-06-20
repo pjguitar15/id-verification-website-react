@@ -90,7 +90,9 @@ const Navbar = ({ regFormRef, startRef }) => {
             >
               <img src={logo} className='w-100 brand h-100' alt='logo' />
             </div>
-            {location.pathname !== '/purchase-verification' ? (
+            {location.pathname !== '/purchase-verification' &&
+            location.pathname !== '/admin' &&
+            location.pathname !== '/admin-login' ? (
               <div className='row col-lg-9 col-xl-7'>
                 {windowDimension.winWidth > 991 ? (
                   <>

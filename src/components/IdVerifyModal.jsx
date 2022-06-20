@@ -7,28 +7,19 @@ import Axios from 'axios'
 import Tesseract from 'tesseract.js'
 
 const IdVerifyModal = ({
-  firstName,
   setFirstName,
-  lastName,
   setLastName,
-  alpha3,
   setAlpha3,
-  country,
   setCountry,
-  flag,
   setFlag,
-  countryCode,
   setCountryCode,
-  passportNum,
   setPassportNum,
-  birthday,
   setBirthday,
   visible,
   setVisible,
   imgSrc,
   setImgSrc,
   setImageLoading,
-  imageLoading,
   title,
   testmrz,
 }) => {
