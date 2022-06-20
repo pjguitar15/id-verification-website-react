@@ -31,9 +31,7 @@ const Footer = () => {
                   All rights reserved.
                 </div>
                 <span className='text-light mx-2'>|</span>
-                <div className='text-light rubik-400'>
-                  Contact Us.
-                </div>
+                <div className='text-light rubik-400'>Contact Us.</div>
               </div>
             </div>
           </div>

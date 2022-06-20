@@ -5,7 +5,7 @@ import { CaretUpOutlined } from '@ant-design/icons'
 // logo
 import logo from '../assets/AI-powered-logo-navbar.png'
 // navigate
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 
 const Navbar = ({ regFormRef, startRef }) => {
   const [size, setSize] = useState('large')
@@ -84,23 +84,59 @@ const Navbar = ({ regFormRef, startRef }) => {
 
         <Container>
           <div className='d-flex justify-content-between align-items-center'>
-            <div onClick={() => navigate('/')}>
-              <div className='col-7 col-md-5 col-lg-4 col-xl-3'>
-                <img src={logo} className='w-100 brand h-100' alt='logo' />
-              </div>
+            <div
+              onClick={() => navigate('/')}
+              className='col-5 col-md-3 col-lg-2 col-xl-2'
+            >
+              <img src={logo} className='w-100 brand h-100' alt='logo' />
             </div>
-            {location.pathname === '/' ? (
-              <Button
-                onClick={() => scrollToSection(regFormRef)}
-                className='titillium-400 px-4'
-                type='primary'
-                shape='round'
-                // icon={<FileDoneOutlined />}
-                size={size}
-                style={{ background: '#40B452', border: 'none' }}
-              >
-                Register
-              </Button>
+            {location.pathname !== '/purchase-verification' ? (
+              <div className='row col-lg-9 col-xl-7'>
+                {windowDimension.winWidth > 991 ? (
+                  <>
+                    <div className='col-md-3 text-center d-flex justify-content-center align-items-center ms-auto'>
+                      <Link
+                        className='text-success titillium-700'
+                        to='/partner-program'
+                      >
+                        PARTNER PROGRAM
+                      </Link>
+                    </div>
+                    <div className='col-md-2 text-center d-flex justify-content-center align-items-center'>
+                      <Link
+                        className='text-success titillium-700'
+                        to='/contact'
+                      >
+                        CONTACT
+                      </Link>
+                    </div>{' '}
+                    <div className='col-md-2 text-center d-flex justify-content-center align-items-center'>
+                      <Link
+                        className='text-success titillium-700'
+                        to='/features'
+                      >
+                        FEATURES
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  ''
+                )}
+
+                <Button
+                  onClick={() => scrollToSection(regFormRef)}
+                  className='titillium-400 col-12 mx-auto mx-md-1 col-lg-2 px-4'
+                  type='primary'
+                  shape='round'
+                  // icon={<FileDoneOutlined />}
+                  size={size}
+                  style={{ background: '#40B452', border: 'none' }}
+                >
+                  Register
+                </Button>
+
+                {/* </div> */}
+              </div>
             ) : (
               ''
             )}
@@ -122,6 +158,32 @@ const Navbar = ({ regFormRef, startRef }) => {
             )}
           </div>
         </Container>
+        {windowDimension.winWidth <= 991 ? (
+          <Container className='p-0'>
+            <div className='row me-auto'>
+              <div className='col-4 mt-3 text-center d-flex justify-content-center align-items-center'>
+                <Link
+                  className='text-success titillium-700'
+                  to='/partner-program'
+                >
+                  PARTNER PROGRAM
+                </Link>
+              </div>
+              <div className='col-3 mt-3 text-center d-flex justify-content-center align-items-center'>
+                <Link className='text-success titillium-700' to='/contact'>
+                  CONTACT
+                </Link>
+              </div>{' '}
+              <div className='col-3 mt-3 text-center d-flex justify-content-center align-items-center'>
+                <Link className='text-success titillium-700' to='/features'>
+                  FEATURES
+                </Link>
+              </div>
+            </div>
+          </Container>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   )

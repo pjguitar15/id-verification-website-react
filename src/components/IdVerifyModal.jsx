@@ -44,6 +44,7 @@ const IdVerifyModal = ({
     console.log('scanning')
     if (imgSrc) {
       Tesseract.recognize(imgSrc).then(({ data: { text } }) => {
+        alert('recognizing...')
         const split = text.split('\n')
         console.log(split)
         const splittedText = split[0]
@@ -125,7 +126,7 @@ const IdVerifyModal = ({
           0,
           res.data.url.indexOf('load/') + 5
         )
-        const newHeightValue = 0.2 * widthHeightRef.current.clientHeight
+        const newHeightValue = 0.1 * widthHeightRef.current.clientHeight
         const cropUrl = `c_crop,h_${Math.floor(newHeightValue)},w_${
           widthHeightRef.current.clientWidth
         }`
@@ -214,7 +215,7 @@ const IdVerifyModal = ({
                       position: 'absolute',
                       top: '0',
                       left: '0',
-                      height: '40%',
+                      height: '45%',
                       width: '100%',
                       opacity: '0.7',
                     }}
@@ -225,7 +226,7 @@ const IdVerifyModal = ({
                       position: 'absolute',
                       bottom: '0',
                       left: '0',
-                      height: '40%',
+                      height: '45%',
                       width: '100%',
                       opacity: '0.7',
                     }}

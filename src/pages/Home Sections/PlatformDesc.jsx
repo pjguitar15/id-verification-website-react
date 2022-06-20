@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
-import { Button } from 'antd'
 import laptop from '../../assets/laptop.png'
 // aos
 // import AOS from 'aos'
@@ -49,14 +48,6 @@ const PlatformDesc = () => {
             document and biometric verifications, trusted data sources, and
             fraud detection signals.
           </p>
-          <Button
-            // data-aos='fade-right'
-            className='text-light mt-2'
-            style={{ background: '#40B452', border: 'none' }}
-            size={size}
-          >
-            Get In Touch
-          </Button>
         </div>
         <div
           className='d-none d-lg-block'

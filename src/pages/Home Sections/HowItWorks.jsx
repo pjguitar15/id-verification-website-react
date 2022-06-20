@@ -34,7 +34,7 @@ const HowItWorks = ({ learnMoreRef }) => {
               />
             </div>
             <div className='p-4 text-start my-2'>
-              <h4 className='text-light'>ID Proofing</h4>
+              <h4 className='text-light'>ID Scan</h4>
               <p className='rubik-400' style={{ fontSize: '16px' }}>
                 Customer is asked to scan their ID document
               </p>
@@ -50,7 +50,7 @@ const HowItWorks = ({ learnMoreRef }) => {
             <div className='p-4 text-start my-2'>
               <h4 className='text-light'>ID Proofing</h4>
               <p className='rubik-400' style={{ fontSize: '16px' }}>
-                Customer is asked to scan their ID document
+                ID is authenticated against security features
               </p>
             </div>
           </div>
@@ -62,9 +62,9 @@ const HowItWorks = ({ learnMoreRef }) => {
               />
             </div>
             <div className='p-4 text-start my-2'>
-              <h4 className='text-light'>ID Proofing</h4>
+              <h4 className='text-light'>Similarity Check</h4>
               <p className='rubik-400' style={{ fontSize: '16px' }}>
-                Customer is asked to scan their ID document
+                Customer facial image is compared with face in ID document
               </p>
             </div>
           </div>{' '}
@@ -76,9 +76,9 @@ const HowItWorks = ({ learnMoreRef }) => {
               />
             </div>
             <div className='p-4 text-start my-2'>
-              <h4 className='text-light'>ID Proofing</h4>
+              <h4 className='text-light'>Liveness Detection</h4>
               <p className='rubik-400' style={{ fontSize: '16px' }}>
-                Customer is asked to scan their ID document
+                Ensure customer presence with Certified Liveness Detection
               </p>
             </div>
           </div>

@@ -13,6 +13,8 @@ import ProcessPage from './pages/process/ProcessPage'
 import { RegFormProvider } from './context/RegFormProvider';
 // react router dom
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import PartnerProgram from './pages/partner-program/PartnerProgram';
+import Contact from './pages/contact/Contact';
 
 function App() {
   const regFormRef = useRef()
@@ -31,6 +33,8 @@ function App() {
             <Route path='/admin' element={<AdminPanel />} />
             <Route path='/admin-login' element={<Login />} />
             <Route path='/purchase-verification' element={<ProcessPage />} />
+            <Route path='/partner-program' element={<PartnerProgram />} />
+            <Route path='/contact' element={<Contact />} />
           </Routes>
           <Footer />
         </RegFormProvider>

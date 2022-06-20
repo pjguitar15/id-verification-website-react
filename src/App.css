@@ -73,3 +73,8 @@
   padding-top: 18px;
   padding-bottom: 24px;
 }
+
+.dark-purple-blue-gradient {
+  background-color: #21d4fd;
+  background-image: linear-gradient(19deg, #21d4fd 0%, #b721ff 100%);
+}
