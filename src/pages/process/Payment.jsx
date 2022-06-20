@@ -19,7 +19,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
   const [toggle, setToggle] = useState(false)
   const [api, contextHolder] = notification.useNotification()
   const [paymentId, setPaymentId] = useState('')
-  // for testing, i changed the state to finished. change it back to waiting once done with testing
+  // for testing purposes, we changed it to finished. Bring it back to waiting later
   const [status, setStatus] = useState('finished')
 
   const openNotification = (placement) => {
@@ -67,9 +67,9 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
   useEffect(() => {
     axios({
       method: 'post',
-      url: 'https://api-sandbox.nowpayments.io/v1/payment',
+      url: 'https://api.nowpayments.io/v1/payment',
       headers: {
-        'x-api-key': 'P1EW1NA-MPB45C7-H8DA0V0-7A8Y5EZ',
+        'x-api-key': 'X2B0G4C-YBDM2YN-NRWFC4T-4959DGG',
         'Content-Type': ' application/json',
       },
       data: {
@@ -105,14 +105,11 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
           // Now payments GET request
           if (paymentId) {
             axios
-              .get(
-                `https://api-sandbox.nowpayments.io/v1/payment/${paymentId}`,
-                {
-                  headers: {
-                    'x-api-key': 'P1EW1NA-MPB45C7-H8DA0V0-7A8Y5EZ',
-                  },
-                }
-              )
+              .get(`https://api.nowpayments.io/v1/payment/${paymentId}`, {
+                headers: {
+                  'x-api-key': 'X2B0G4C-YBDM2YN-NRWFC4T-4959DGG',
+                },
+              })
               .then((res) => {
                 // if status is finished, set status state to "finished"
                 if (res.data.payment_status !== 'finished') {
@@ -266,10 +263,10 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
           <h6>Wallet Address</h6>
           {/* copy address button */}
           <div>
-            TCQPnVffdoUY4QRgAGexJJ5v2fSsWHoqKr
+            TVD45QYemqYqgiCDehSr53aKh7TJdb8tbM
             <CopyToClipboard
               className='ms-3'
-              text='TCQPnVffdoUY4QRgAGexJJ5v2fSsWHoqKr'
+              text='TVD45QYemqYqgiCDehSr53aKh7TJdb8tbM'
             >
               <Button onClick={() => openNotification('topLeft')}>
                 Copy to clipboard

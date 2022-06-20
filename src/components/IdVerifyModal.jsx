@@ -39,6 +39,10 @@ const IdVerifyModal = ({
         const split = text.split('\n')
         console.log(split)
         const splittedText = split[0]
+        // notifies user if tesseract is not able to take anything from the photo
+        if (splittedText.length === 0) {
+          alert(`We couldn't detect your ID. Please try again`)
+        }
         const nextLine = split[1]
         console.log(split)
         // extract country
