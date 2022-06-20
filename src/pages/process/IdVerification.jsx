@@ -3,7 +3,7 @@ import { Button } from 'antd'
 import AntdSpinner from '../../components/AntdSpinner'
 import { PlusOutlined, CheckOutlined } from '@ant-design/icons'
 import IdVerifyModal from '../../components/IdVerifyModal'
-import passport from '../../assets/passport.jpg'
+import idImage from '../../assets/id.jpg'
 import testmrz from '../../assets/testmrz.jpg'
 
 const IdVerification = ({ blurred, nextStepHandler }) => {
@@ -99,7 +99,7 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
         <img
           className='w-100 h-100 rounded'
           style={{ objectFit: 'cover', filter: !blurred ? 'blur(8px)' : '' }}
-          src={passport}
+          src={idImage}
           alt=''
         />
       </div>
@@ -201,13 +201,13 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
           passportNum +
           ', ' +
           birthday */}
-        <div>First name: {firstName}</div>
+        {/* <div>First name: {firstName}</div>
         <div>Last name: {lastName}</div>
         <div>Country: {country}</div>
         <div>Flag: {flag}</div>
         <div>Country code: {alpha3}</div>
         <div>Passport Number: {passportNum}</div>
-        <div>Birthday: {birthday}</div>
+        <div>Birthday: {birthday}</div> */}
         {/* Image scanning here */}
         {isProcessing ? (
           <div className='d-flex'>

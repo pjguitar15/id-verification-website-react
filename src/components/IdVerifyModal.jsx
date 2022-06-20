@@ -35,7 +35,7 @@ const IdVerifyModal = ({
     console.log('scanning')
     if (imgSrc) {
       Tesseract.recognize(imgSrc).then(({ data: { text } }) => {
-        alert('recognizing...')
+        // alert('recognizing...')
         const split = text.split('\n')
         console.log(split)
         const splittedText = split[0]
@@ -117,11 +117,12 @@ const IdVerifyModal = ({
       formData
     )
       .then((res) => {
+        localStorage.setItem('idImg', res.data.url)
         const firstPartOfUrl = res.data.url.slice(
           0,
           res.data.url.indexOf('load/') + 5
         )
-        const newHeightValue = 0.1 * widthHeightRef.current.clientHeight
+        const newHeightValue = widthHeightRef.current.clientHeight
         const cropUrl = `c_crop,h_${Math.floor(newHeightValue)},w_${
           widthHeightRef.current.clientWidth
         }`
@@ -204,7 +205,7 @@ const IdVerifyModal = ({
             .map((item, index) => (
               <div key={index}>
                 <div ref={widthHeightRef} style={{ position: 'relative' }}>
-                  <div
+                  {/* <div
                     className='bg-dark'
                     style={{
                       position: 'absolute',
@@ -225,7 +226,7 @@ const IdVerifyModal = ({
                       width: '100%',
                       opacity: '0.7',
                     }}
-                  ></div>
+                  ></div> */}
                   <Webcam
                     ref={webcamRef}
                     audio={false}

@@ -157,6 +157,8 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
       contactNumber: contactNumber,
       email: email,
       location: location,
+      selfieImg: localStorage.getItem('selfieImg'),
+      idImg: localStorage.getItem('idImg'),
       timestamp: serverTimestamp(),
     })
       .then((res) => {

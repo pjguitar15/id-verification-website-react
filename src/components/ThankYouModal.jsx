@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal } from 'antd'
+import { Button, Modal } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
 const ThankYouModal = ({
@@ -8,18 +8,24 @@ const ThankYouModal = ({
   setIsLastStepDone,
 }) => {
   const navigate = useNavigate()
+  const handleOK = () => {
+    navigate('/')
+    setIsModalVisible(false)
+    setIsLastStepDone(true)
+    window.location.reload()
+  }
+
   return (
     <div>
       <Modal
         title='Verification Success'
         visible={isModalVisible}
-        onOk={() => {
-          navigate('/')
-          setIsModalVisible(false)
-          setIsLastStepDone(true)
-          window.location.reload()
-        }}
         onCancel={() => setIsModalVisible(false)}
+        footer={[
+          <Button onClick={handleOK} type='primary'>
+            OK
+          </Button>,
+        ]}
       >
         <div className='d-flex'>
           <svg

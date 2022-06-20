@@ -95,6 +95,7 @@ const ContactForm = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             as='textarea'
+            rows='6'
             placeholder='Enter your message'
           />
         </Form.Group>{' '}

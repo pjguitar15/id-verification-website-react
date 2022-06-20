@@ -135,10 +135,9 @@ const Navbar = ({ regFormRef, startRef }) => {
                 )}
                 <Button
                   onClick={() => scrollToSection(regFormRef)}
-                  className='titillium-400 col-12 mx-auto mx-md-1 col-lg-2 px-4 antd-button-fix'
+                  className='titillium-400 col-12 mx-auto mx-md-1 col-lg-2 px-4'
                   type='primary'
                   shape='round'
-                  icon={<FileDoneOutlined />}
                   size={size}
                   style={{ background: '#40B452', border: 'none' }}
                 >

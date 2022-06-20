@@ -60,17 +60,20 @@ const VerifiedId = () => {
               </span>
             </h6>
             <h6 className='rubik-400 fw-bold text-dark py-1'>
-              Country code: <span className='fw-bold'>PHL</span>
+              Country:{' '}
+              <span className='fw-bold'>
+                {localStorage.getItem('location')}
+              </span>
             </h6>
-            <h6 className='rubik-400 fw-bold text-dark py-1'>
+            {/* <h6 className='rubik-400 fw-bold text-dark py-1'>
               ID number: <span className='fw-bold'>PF389FYZN</span>
-            </h6>
-            <h6 className='rubik-400 fw-bold text-dark py-1'>
+            </h6> */}
+            {/* <h6 className='rubik-400 fw-bold text-dark py-1'>
               Birthday: <span className='fw-bold'>05-15-98</span>
-            </h6>
-            <div className='col-md-2 col-4 my-3'>
+            </h6> */}
+            {/* <div className='col-md-2 col-4 my-3'>
               <img className='w-100' src={flag} alt='flag' />
-            </div>
+            </div> */}
           </div>
           <div className='col-md-3 col-xl-4 col-4'>
             <img
