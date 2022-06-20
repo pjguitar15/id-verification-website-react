@@ -1,47 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Button } from 'antd'
-import UploadComponent from '../../components/UploadComponent'
 import AntdSpinner from '../../components/AntdSpinner'
-import SelfieModal from '../../components/SelfieModal'
 import { PlusOutlined, CheckOutlined } from '@ant-design/icons'
-import Axios from 'axios'
 import IdVerifyModal from '../../components/IdVerifyModal'
 import passport from '../../assets/passport.jpg'
+import testmrz from '../../assets/testmrz.jpg'
 
 const IdVerification = ({ blurred, nextStepHandler }) => {
-  const [imageUrl, setImageUrl] = useState('')
   const [imageLoading, setImageLoading] = useState(false)
   const [imgSrc, setImgSrc] = useState(null)
   const [visible, setVisible] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [scanMessage, setScanMessage] = useState('')
 
-  const [deviceId, setDeviceId] = useState({})
+  // read text from passport
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [alpha3, setAlpha3] = useState('')
+  const [country, setCountry] = useState('')
+  const [flag, setFlag] = useState('')
+  const [countryCode, setCountryCode] = useState('')
+  const [passportNum, setPassportNum] = useState('')
+  const [birthday, setBirthday] = useState('')
+
   const [devices, setDevices] = useState([])
   const [selectedDeviceId, setSelectedDeviceId] = useState('')
   //   screenshot states
 
   const loadImgRef = useRef()
-  const webcamRef = useRef(null)
-
-  const capture = React.useCallback(() => {
-    const imageSrc = webcamRef.current.getScreenshot()
-    setImageLoading(true)
-    // how to use axios. this is inside uploadImage function
-    const formData = new FormData()
-    formData.append('file', imageSrc) // selectedImage is a state
-    formData.append('upload_preset', 'aipowered')
-
-    const cloudName = 'philcob'
-    Axios.post(
-      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-      formData
-    )
-      .then((res) => setImgSrc(res.data.url))
-      .then(() => setImageLoading(false))
-
-    setImgSrc(imageSrc)
-  }, [webcamRef, setImgSrc])
 
   const handleDevices = React.useCallback(
     (mediaDevices) =>
@@ -52,12 +38,6 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
   useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then(handleDevices)
   }, [handleDevices])
-
-  const videoConstraints = {
-    width: 1280,
-    height: 720,
-    facingMode: 'user',
-  }
 
   useEffect(() => {
     if (devices.length > 0) {
@@ -87,6 +67,7 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
   return (
     <div>
       <IdVerifyModal
+        testmrz={testmrz}
         title='ID Verification'
         imageLoading={imageLoading}
         setImageLoading={setImageLoading}
@@ -94,6 +75,22 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
         setImgSrc={setImgSrc}
         visible={visible}
         setVisible={setVisible}
+        firstName={firstName}
+        setFirstName={setFirstName}
+        lastName={lastName}
+        setLastName={setLastName}
+        alpha3={alpha3}
+        setAlpha3={setAlpha3}
+        country={country}
+        setCountry={setCountry}
+        flag={flag}
+        setFlag={setFlag}
+        countryCode={countryCode}
+        setCountryCode={setCountryCode}
+        passportNum={passportNum}
+        setPassportNum={setPassportNum}
+        birthday={birthday}
+        setBirthday={setBirthday}
       />
       <h5 className='mb-3'>Verify your ID</h5>
       <hr />
@@ -188,6 +185,29 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
         ) : (
           ''
         )}
+        {/* ID verification results here for testing */}
+        {/* 
+          firstName +
+          ', ' +
+          lastName +
+          ', ' + 
+          ', ' +
+          country +
+          ', ' +
+          flag +
+          ', ' +
+          countryCode +
+          ', ' +
+          passportNum +
+          ', ' +
+          birthday */}
+        <div>First name: {firstName}</div>
+        <div>Last name: {lastName}</div>
+        <div>Country: {country}</div>
+        <div>Flag: {flag}</div>
+        <div>Country code: {alpha3}</div>
+        <div>Passport Number: {passportNum}</div>
+        <div>Birthday: {birthday}</div>
         {/* Image scanning here */}
         {isProcessing ? (
           <div className='d-flex'>

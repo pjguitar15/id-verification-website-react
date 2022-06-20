@@ -1,5 +1,4 @@
 import React from 'react'
-import faceRecognition from '../../../assets/face-recognition.png'
 
 const AIFeatureReversed = (props) => {
   return (

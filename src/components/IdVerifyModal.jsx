@@ -7,6 +7,22 @@ import Axios from 'axios'
 import Tesseract from 'tesseract.js'
 
 const IdVerifyModal = ({
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  alpha3,
+  setAlpha3,
+  country,
+  setCountry,
+  flag,
+  setFlag,
+  countryCode,
+  setCountryCode,
+  passportNum,
+  setPassportNum,
+  birthday,
+  setBirthday,
   visible,
   setVisible,
   imgSrc,
@@ -14,29 +30,15 @@ const IdVerifyModal = ({
   setImageLoading,
   imageLoading,
   title,
+  testmrz,
 }) => {
-  const [deviceId, setDeviceId] = React.useState({})
-  const [devices, setDevices] = React.useState([])
+  const [deviceId, setDeviceId] = useState({})
+  const [devices, setDevices] = useState([])
   const [selectedDeviceId, setSelectedDeviceId] = useState('')
   const [windowDimension, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight,
   })
-
-  // read text from passport
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [alpha3, setAlpha3] = useState('')
-  const [country, setCountry] = useState('')
-  const [flag, setFlag] = useState('')
-  const [countryCode, setCountryCode] = useState('')
-  const [passportNum, setPassportNum] = useState('')
-  const [birthday, setBirthday] = useState('')
-
-  // Capture code
-  // const captured = webcamRef.current.getScreenshot()
-  //   setImgSrc(captured)
-  //   console.log(webcamRef.current.getBoundingclientRect)
 
   const tesseractRead = () => {
     console.log('scanning')
@@ -165,36 +167,6 @@ const IdVerifyModal = ({
       setSelectedDeviceId(devices[1].deviceId)
     }
   }, [devices])
-
-  useEffect(() => {
-    // setFirstName(resultFirstName)
-    //         setLastName(resultLastName)
-    //         setAlpha3(resultCountry)
-    //         setCountry(res.data[0].name.common)
-    //         setFlag(res.data[0].flags.png)
-    //         setCountryCode(res.data[0].ccn3)
-    //         setPassportNum(passportNumber)
-    //         setBirthday(resultBirthday)
-    if (firstName) {
-      alert(
-        firstName +
-          ', ' +
-          lastName +
-          ', ' +
-          alpha3 +
-          ', ' +
-          country +
-          ', ' +
-          flag +
-          ', ' +
-          countryCode +
-          ', ' +
-          passportNum +
-          ', ' +
-          birthday
-      )
-    }
-  }, [firstName])
 
   return (
     <>

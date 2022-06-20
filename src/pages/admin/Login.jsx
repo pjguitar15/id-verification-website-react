@@ -23,6 +23,7 @@ const Login = () => {
       .catch((err) => {
         const errorCode = err.code
         const errorMessage = err.message
+        console.log(errorCode)
         console.log(errorMessage)
         setIsError(true)
       })
@@ -34,6 +35,7 @@ const Login = () => {
     } else {
       navigate('/admin-login')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div className='bg-light py-5'>
