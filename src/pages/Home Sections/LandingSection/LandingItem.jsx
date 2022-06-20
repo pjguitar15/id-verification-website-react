@@ -46,7 +46,7 @@ const LandingItem = ({ title, content, img, learnMoreRef }) => {
               <Button
                 onClick={() => scrollToSection(learnMoreRef)}
                 data-aos='fade-right'
-                className='titillium-400 px-4 text-light'
+                className='titillium-400 px-4 text-light antd-button-fix'
                 shape='round'
                 size={size}
                 style={{ background: '#40B452', border: 'none' }}

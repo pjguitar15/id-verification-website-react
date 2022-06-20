@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import ContactForm from './ContactForm'
 import { CheckCircleOutlined } from '@ant-design/icons'
@@ -12,7 +12,7 @@ const Contact = () => {
         }}
         className='colored-thing-on-footer'
       ></div>
-      <div className='bg-light' style={{ padding: '130px 0' }}>
+      <div className='bg-light' style={{ padding: '80px 0' }}>
         <Container>
           <div className='row py-5'>
             <div className='col-md-6'>

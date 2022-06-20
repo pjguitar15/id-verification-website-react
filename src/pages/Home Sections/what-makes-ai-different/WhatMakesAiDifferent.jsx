@@ -25,7 +25,7 @@ const WhatMakesAiDifferent = () => {
 
   const secondContent = {
     title: 'Service Excellence',
-    content: `Our dedicated service team provides high profes sionalism for customers, with a prompt response within 48 hours.`,
+    content: `Our dedicated service team provides high professionalism for customers, with a prompt response within 48 hours.`,
     img: customerService,
   }
 

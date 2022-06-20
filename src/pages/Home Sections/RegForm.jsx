@@ -22,7 +22,7 @@ const RegForm = () => {
   }
   return (
     <div className='bg-light p-4 p-lg-5 rounded shadow-sm'>
-      <h2 className='titillium-600'>Register</h2>
+      <h2 className='titillium-600'>Start Using Our Verification</h2>
       <Form onSubmit={submitForm}>
         <Form.Group className='my-3'>
           <Form.Text>First name</Form.Text>

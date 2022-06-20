@@ -30,6 +30,14 @@ const SelfieVerification = ({ blurred, continueButtonHandler }) => {
       }, 13000)
     }
   }, [imgSrc])
+
+  useEffect(() => {
+    setTimeout(() => {
+      alert(
+        'It is advised to use your mobile phone to proceed with ID verification'
+      )
+    }, 1500)
+  }, [])
   return (
     <div>
       <SelfieModal

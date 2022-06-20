@@ -19,8 +19,8 @@ const HowItWorks = ({ learnMoreRef }) => {
         >
           In today's digital world, identity matters. Are your customers who
           they say they are? Can you know for sure? Fight fraud and onboard real
-          customers, faster with BRANDNAME's AI-powered identity verification
-          and authentication solutions.
+          customers, faster with AI-powered's identity verification and
+          authentication solutions.
         </p>
         <h1 className='text-center titillium-400 display-4 text-light pb-5'>
           How It Works

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Container } from 'react-bootstrap'
 import { Button } from 'antd'
-import { CaretUpOutlined } from '@ant-design/icons'
+import { CaretUpOutlined, FileDoneOutlined } from '@ant-design/icons'
 // logo
 import logo from '../assets/AI-powered-logo-navbar.png'
 // navigate
@@ -43,10 +43,22 @@ const Navbar = ({ regFormRef, startRef }) => {
   }
 
   const scrollToSection = (elementRef) => {
-    elementRef.current.scrollIntoView({ behavior: 'smooth' })
+    if (location.pathname !== '/') {
+      navigate('/')
+      setTimeout(
+        () => elementRef.current.scrollIntoView({ behavior: 'smooth' }),
+        800
+      )
+    } else {
+      elementRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   window.addEventListener('scroll', scrollListener)
+
+  useEffect(() => {
+    startRef.current.scrollIntoView({ behavior: 'smooth' })
+  }, [location])
 
   // logout handler
   const logoutHandler = () => {
@@ -96,7 +108,12 @@ const Navbar = ({ regFormRef, startRef }) => {
               <div className='row col-lg-9 col-xl-7'>
                 {windowDimension.winWidth > 991 ? (
                   <>
-                    <div className='col-md-3 text-center d-flex justify-content-center align-items-center ms-auto'>
+                    <div className='col-md-2 text-center d-flex justify-content-center align-items-center ms-auto'>
+                      <Link className='text-success titillium-700' to='/'>
+                        HOME
+                      </Link>
+                    </div>
+                    <div className='col-md-3 text-center d-flex justify-content-center align-items-center'>
                       <Link
                         className='text-success titillium-700'
                         to='/partner-program'
@@ -112,31 +129,21 @@ const Navbar = ({ regFormRef, startRef }) => {
                         CONTACT
                       </Link>
                     </div>{' '}
-                    <div className='col-md-2 text-center d-flex justify-content-center align-items-center'>
-                      <Link
-                        className='text-success titillium-700'
-                        to='/features'
-                      >
-                        FEATURES
-                      </Link>
-                    </div>
                   </>
                 ) : (
                   ''
                 )}
-
                 <Button
                   onClick={() => scrollToSection(regFormRef)}
-                  className='titillium-400 col-12 mx-auto mx-md-1 col-lg-2 px-4'
+                  className='titillium-400 col-12 mx-auto mx-md-1 col-lg-2 px-4 antd-button-fix'
                   type='primary'
                   shape='round'
-                  // icon={<FileDoneOutlined />}
+                  icon={<FileDoneOutlined />}
                   size={size}
                   style={{ background: '#40B452', border: 'none' }}
                 >
                   Register
                 </Button>
-
                 {/* </div> */}
               </div>
             ) : (
@@ -164,6 +171,11 @@ const Navbar = ({ regFormRef, startRef }) => {
           <Container className='p-0'>
             <div className='row me-auto'>
               <div className='col-4 mt-3 text-center d-flex justify-content-center align-items-center'>
+                <Link className='text-success titillium-700' to='/'>
+                  HOME
+                </Link>
+              </div>
+              <div className='col-5 mt-3 text-center d-flex justify-content-center align-items-center'>
                 <Link
                   className='text-success titillium-700'
                   to='/partner-program'
@@ -176,11 +188,6 @@ const Navbar = ({ regFormRef, startRef }) => {
                   CONTACT
                 </Link>
               </div>{' '}
-              <div className='col-3 mt-3 text-center d-flex justify-content-center align-items-center'>
-                <Link className='text-success titillium-700' to='/features'>
-                  FEATURES
-                </Link>
-              </div>
             </div>
           </Container>
         ) : (

@@ -23,9 +23,7 @@ const Footer = () => {
             </div>
             <div className='col-lg-6 d-flex align-items-center'>
               <div className='d-flex mx-auto mx-lg-0 flex-row'>
-                <div className='text-light rubik-400'>
-                  © 2010-2022 AI-powered
-                </div>
+                <div className='text-light rubik-400'>© 2022 AI-powered</div>
                 <span className='text-light mx-2'>|</span>
                 <div className='text-light rubik-400' href='#'>
                   All rights reserved.
