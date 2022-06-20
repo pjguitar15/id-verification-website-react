@@ -20,7 +20,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
   const [api, contextHolder] = notification.useNotification()
   const [paymentId, setPaymentId] = useState('')
   // for testing purposes, we changed it to finished. Bring it back to waiting later
-  const [status, setStatus] = useState('finished')
+  const [status, setStatus] = useState('waiting')
 
   const openNotification = (placement) => {
     api.success({
