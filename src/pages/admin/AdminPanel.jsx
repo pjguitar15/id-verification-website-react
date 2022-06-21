@@ -98,6 +98,8 @@ const AdminPanel = () => {
         contactNum: item.contactNumber,
         email: item.email,
         address: item.location,
+        selfieImg: item.selfieImg,
+        idImg: item.idImg,
         tags: ['paid'],
       })
     })
@@ -158,12 +160,35 @@ const AdminPanel = () => {
         <Container className='text-center mt-5'>
           <h1 className='display-6 titillium-400'>Dashboard</h1>
           <Table dataSource={data.length > 0 ? data : ''}>
-            <Column title='UID' dataIndex='key' key='key' />
             <Column title='First Name' dataIndex='firstName' key='firstName' />
             <Column title='Last Name' dataIndex='lastName' key='lastName' />
             <Column title='Location' dataIndex='address' key='address' />
             <Column title='Contact' dataIndex='contactNum' key='contactNum' />
             <Column title='Email' dataIndex='email' key='email' />
+            <Column
+              title='Selfie'
+              dataIndex='selfieImg'
+              key='selfieImg'
+              render={(item) => (
+                <>
+                  <a target='_blank' href={item}>
+                    Click to Open
+                  </a>
+                </>
+              )}
+            />
+            <Column
+              title='ID'
+              dataIndex='idImg'
+              key='idImg'
+              render={(item) => (
+                <>
+                  <a target='_blank' href={item}>
+                    Click to Open
+                  </a>
+                </>
+              )}
+            />
             <Column
               title='Status'
               dataIndex='tags'
