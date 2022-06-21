@@ -40,9 +40,9 @@ const IdVerifyModal = ({
         console.log(split)
         const splittedText = split[0]
         // notifies user if tesseract is not able to take anything from the photo
-        if (splittedText.length === 0) {
-          alert(`We couldn't detect your ID. Please try again`)
-        }
+        // if (splittedText.length === 0) {
+        //   alert(`We couldn't detect your ID. Please try again`)
+        // }
         const nextLine = split[1]
         console.log(split)
         // extract country
@@ -109,9 +109,9 @@ const IdVerifyModal = ({
     // how to use axios. this is inside uploadImage function
     const formData = new FormData()
     formData.append('file', imageSrc) // selectedImage is a state
-    formData.append('upload_preset', 'aipowered')
+    formData.append('upload_preset', 'ai-powered')
 
-    const cloudName = 'philcob'
+    const cloudName = 'https-ai-powered-io'
     Axios.post(
       `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
       formData

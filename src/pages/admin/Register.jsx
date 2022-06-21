@@ -5,6 +5,18 @@ import { Container } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { app } from '../../firebase/firebaseConfig'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { db } from '../../firebase/firebaseConfig'
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  serverTimestamp,
+  query,
+  orderBy,
+} from 'firebase/firestore'
 
 const Register = () => {
   const [errorMsg, setErrorMsg] = useState('')
@@ -25,6 +37,17 @@ const Register = () => {
             'Your admin account has been created successfully! Please login now.'
           )
           navigate('/admin-login')
+        })
+        .then(async () => {
+          const collectionRef = collection(db, 'admin-accounts')
+          await addDoc(collectionRef, {
+            email: values.email,
+            position:
+              values.email === 'aipoweredhelpdesk@gmail.com'
+                ? 'main admin'
+                : 'admin',
+            timestamp: serverTimestamp(),
+          })
         })
         .catch((err) => {
           const errorMessage = err.message

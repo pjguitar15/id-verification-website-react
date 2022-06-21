@@ -4,6 +4,7 @@ import { Button, Space, Table, Tag, Modal } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebase/firebaseConfig'
+import { getAuth } from 'firebase/auth'
 import {
   collection,
   getDocs,
@@ -13,6 +14,7 @@ import {
   deleteDoc,
 } from 'firebase/firestore'
 import AntdCard from '../../components/AntdCard'
+import AdminAccounts from './AdminAccounts'
 const { confirm } = Modal
 
 const { Column } = Table
@@ -22,6 +24,7 @@ const AdminPanel = () => {
   const [data, setData] = useState([])
   const [inquiries, setInquiries] = useState([])
   const [selectedMenu, setSelectedMenu] = useState('dashboard')
+  const [currLogged, setCurrLogged] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -64,6 +67,16 @@ const AdminPanel = () => {
       setUsers(mappedData)
     }
     getData()
+
+    // get current logged in
+    getAuth().onAuthStateChanged((user) => {
+      if (user) {
+        setCurrLogged(user.email)
+      } else {
+        // No user is signed in.
+        console.log('There is no logged in user')
+      }
+    })
   }, [])
   useEffect(() => {
     let authToken = sessionStorage.getItem('Auth Token')
@@ -102,13 +115,33 @@ const AdminPanel = () => {
   return (
     <div className='py-5'>
       <Container>
-        <Button onClick={() => setSelectedMenu('dashboard')} className='me-2'>
-          Dashboard
-        </Button>
-        <Button onClick={() => setSelectedMenu('inquiries')}>Inquiries</Button>
+        <div className='d-flex justify-content-between'>
+          <div>
+            <Button
+              onClick={() => setSelectedMenu('dashboard')}
+              className='me-2'
+            >
+              Dashboard
+            </Button>
+            <Button
+              className='me-2'
+              onClick={() => setSelectedMenu('inquiries')}
+            >
+              Inquiries
+            </Button>
+            {currLogged === 'aipoweredhelpdesk@gmail.com' ? (
+              <Button onClick={() => setSelectedMenu('admin-accounts')}>
+                Admin Accounts
+              </Button>
+            ) : (
+              ''
+            )}
+          </div>
+          <h6>Welcome {currLogged}!</h6>
+        </div>
       </Container>
       {selectedMenu === 'inquiries' ? (
-        <Container className='text-center'>
+        <Container className='text-center mt-5'>
           <h1 className='display-6 titillium-400'>Inquiries</h1>
           <div className='row'>
             {inquiries.map((item, index) => (
@@ -122,7 +155,7 @@ const AdminPanel = () => {
         ''
       )}
       {selectedMenu === 'dashboard' ? (
-        <Container className='text-center'>
+        <Container className='text-center mt-5'>
           <h1 className='display-6 titillium-400'>Dashboard</h1>
           <Table dataSource={data.length > 0 ? data : ''}>
             <Column title='UID' dataIndex='key' key='key' />
@@ -169,6 +202,8 @@ const AdminPanel = () => {
       ) : (
         ''
       )}
+
+      {selectedMenu === 'admin-accounts' ? <AdminAccounts /> : ''}
     </div>
   )
 }

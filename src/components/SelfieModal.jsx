@@ -37,9 +37,9 @@ const SelfieModal = ({
     // how to use axios. this is inside uploadImage function
     const formData = new FormData()
     formData.append('file', imageSrc) // selectedImage is a state
-    formData.append('upload_preset', 'aipowered')
+    formData.append('upload_preset', 'ai-powered')
 
-    const cloudName = 'philcob'
+    const cloudName = 'https-ai-powered-io'
     Axios.post(
       `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
       formData
