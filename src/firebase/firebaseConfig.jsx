@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore } from '@firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDomC2K0tLdKpN7gYoCkAdQ2V_uRCFzca4',
-  authDomain: 'ai-powered-93626.firebaseapp.com',
-  projectId: 'ai-powered-93626',
-  storageBucket: 'ai-powered-93626.appspot.com',
-  messagingSenderId: '38971356087',
-  appId: '1:38971356087:web:9a3ea790e74713b9bbae32',
+  apiKey: process.env.REACT_APP_FB_API_KEY,
+  authDomain: process.env.REACT_APP_FB_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FB_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FB_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FB_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FB_APP_ID,
 }
 
 export const app = initializeApp(firebaseConfig)

@@ -21,11 +21,12 @@ const Register = () => {
         values.password
       )
         .then((response) => {
-          alert('Your account has been created successfully! Please login now.')
+          alert(
+            'Your admin account has been created successfully! Please login now.'
+          )
           navigate('/admin-login')
         })
         .catch((err) => {
-          const errorCode = err.code
           const errorMessage = err.message
           setErrorMsg(errorMessage)
         })
@@ -107,12 +108,6 @@ const Register = () => {
               className='login-form-button border-0'
             >
               Sign up
-            </Button>
-            <Button
-              onClick={() => navigate('/admin-login')}
-              className='login-form-button border-0'
-            >
-              Go to login
             </Button>
           </Form.Item>
           {errorMsg ? <Alert message={errorMsg} type='error' /> : ''}
