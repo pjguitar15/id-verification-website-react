@@ -87,6 +87,12 @@ const Login = () => {
             >
               Log in
             </Button>
+            <Button
+              onClick={() => navigate('/admin-register')}
+              className='login-form-button border-0'
+            >
+              Create an account
+            </Button>
           </Form.Item>
           {isError ? (
             <Alert message='Invalid username/password' type='error' />

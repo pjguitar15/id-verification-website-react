@@ -104,7 +104,8 @@ const Navbar = ({ regFormRef, startRef }) => {
             </div>
             {location.pathname !== '/purchase-verification' &&
             location.pathname !== '/admin' &&
-            location.pathname !== '/admin-login' ? (
+            location.pathname !== '/admin-login' &&
+            location.pathname !== '/admin-register' ? (
               <div className='row col-lg-9 col-xl-7'>
                 {windowDimension.winWidth > 991 ? (
                   <>
