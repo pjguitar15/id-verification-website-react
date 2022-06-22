@@ -14,7 +14,7 @@ const LandingSection = ({ learnMoreRef }) => {
     {
       title: 'Welcome to AI-powered',
       content:
-        'AI-powered is the place to make your desires come alive. Established in 2003, we have been specializing in connecting people who share similar interests.',
+        'AI-powered is the place to make your desires come alive. Established in 2022, we have been specializing in connecting people who share similar interests.',
       img: faceRecognition,
     },
     {

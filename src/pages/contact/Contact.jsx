@@ -19,8 +19,8 @@ const Contact = () => {
               <h1 className='m-0 p-0'>Talk to a Specialist</h1>
               <hr className='my-4' />
               <h5 className='my-5'>
-                Fight fraud and financial crime with Jumio's unified, end-to-end
-                identity verification, eKYC and AML platform.
+                Fight fraud and financial crime with Ai-powered's unified,
+                end-to-end identity verification, eKYC and AML platform.
               </h5>
               <div>
                 <h4 className='rubik-400'>We are here to help you:</h4>
