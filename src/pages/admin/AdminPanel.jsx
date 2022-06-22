@@ -100,6 +100,7 @@ const AdminPanel = () => {
         address: item.location,
         selfieImg: item.selfieImg,
         idImg: item.idImg,
+        paymentImg: item.paymentImg,
         tags: ['paid'],
       })
     })
@@ -181,6 +182,18 @@ const AdminPanel = () => {
               title='ID'
               dataIndex='idImg'
               key='idImg'
+              render={(item) => (
+                <>
+                  <a target='_blank' href={item}>
+                    Click to Open
+                  </a>
+                </>
+              )}
+            />
+            <Column
+              title='Payment'
+              dataIndex='paymentImg'
+              key='paymentImg'
               render={(item) => (
                 <>
                   <a target='_blank' href={item}>

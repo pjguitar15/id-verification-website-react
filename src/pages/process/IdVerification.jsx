@@ -116,20 +116,6 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
           >
             <path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z' />
           </svg>
-          Take a picture of your passport's mrz code at the bottom of your bio
-          page
-        </p>{' '}
-        <p>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='16'
-            height='16'
-            fill='green'
-            className='bi bi-check2 me-2'
-            viewBox='0 0 16 16'
-          >
-            <path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z' />
-          </svg>
           No black and white images
         </p>
         <p>
@@ -185,29 +171,6 @@ const IdVerification = ({ blurred, nextStepHandler }) => {
         ) : (
           ''
         )}
-        {/* ID verification results here for testing */}
-        {/* 
-          firstName +
-          ', ' +
-          lastName +
-          ', ' + 
-          ', ' +
-          country +
-          ', ' +
-          flag +
-          ', ' +
-          countryCode +
-          ', ' +
-          passportNum +
-          ', ' +
-          birthday */}
-        {/* <div>First name: {firstName}</div>
-        <div>Last name: {lastName}</div>
-        <div>Country: {country}</div>
-        <div>Flag: {flag}</div>
-        <div>Country code: {alpha3}</div>
-        <div>Passport Number: {passportNum}</div>
-        <div>Birthday: {birthday}</div> */}
         {/* Image scanning here */}
         {isProcessing ? (
           <div className='d-flex'>

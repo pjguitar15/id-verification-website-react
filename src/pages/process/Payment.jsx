@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { Container } from 'react-bootstrap'
+import React, { useState, useEffect, useRef } from 'react'
+import { Container, Form } from 'react-bootstrap'
 import { Button, notification } from 'antd'
 import qr from '../../assets/qr.png'
 import axios from 'axios'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { db } from '../../firebase/firebaseConfig'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { CameraOutlined } from '@ant-design/icons'
+import PaymentCameraModal from './PaymentCameraModal'
 
 const Context = React.createContext({
   name: 'Default',
@@ -19,8 +21,12 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
   const [toggle, setToggle] = useState(false)
   const [api, contextHolder] = notification.useNotification()
   const [paymentId, setPaymentId] = useState('')
+  const [fileSelected, setFileSelected] = useState([])
   // for testing purposes, we changed it to finished. Bring it back to waiting later
   const [status, setStatus] = useState('waiting')
+  // For payment screenshot
+  const [imgSrc, setImgSrc] = useState('')
+  const [visible, setVisible] = useState(false)
 
   const openNotification = (placement) => {
     api.success({
@@ -64,81 +70,119 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
     // Create payment post request
   }, [])
 
-  useEffect(() => {
-    axios({
-      method: 'post',
-      url: 'https://api.nowpayments.io/v1/payment',
-      headers: {
-        'x-api-key': process.env.REACT_APP_NOWPAYMENTS_API_KEY,
-        'Content-Type': ' application/json',
-      },
-      data: {
-        price_amount: 20,
-        price_currency: 'usdttrc20',
-        // pay_amount: 20, // optional
-        pay_currency: 'usdttrc20',
-        ipn_callback_url: 'https://nowpayments.io',
-        order_id: 'RGDBP-21314',
-        order_description: 'AI-powered ID Verification',
-        // case: 'success',
-      },
-    })
-      .then((res) => {
-        console.log('Created payment:')
-        console.log(res)
-        console.log(res.data.payment_id)
-        setPaymentId(res.data.payment_id)
-        console.log('-------------------------')
-      })
-      .then(() => {
-        setToggle(false)
-      })
-      .catch((error) => console.log(error.response.data))
-  }, [toggle])
+  // useEffect(() => {
+  //   axios({
+  //     method: 'post',
+  //     url: 'https://api.nowpayments.io/v1/payment',
+  //     headers: {
+  //       'x-api-key': process.env.REACT_APP_NOWPAYMENTS_API_KEY,
+  //       'Content-Type': ' application/json',
+  //     },
+  //     data: {
+  //       price_amount: 20,
+  //       price_currency: 'usdttrc20',
+  //       // pay_amount: 20, // optional
+  //       pay_currency: 'usdttrc20',
+  //       ipn_callback_url: 'https://nowpayments.io',
+  //       order_id: 'RGDBP-21314',
+  //       order_description: 'AI-powered ID Verification',
+  //       // case: 'success',
+  //     },
+  //   })
+  //     .then((res) => {
+  //       console.log('Created payment:')
+  //       console.log(res)
+  //       console.log(res.data.payment_id)
+  //       setPaymentId(res.data.payment_id)
+  //       console.log('-------------------------')
+  //     })
+  //     .then(() => {
+  //       setToggle(false)
+  //     })
+  //     .catch((error) => console.log(error.response.data))
+  // }, [toggle])
 
-  // timer
-  useEffect(() => {
-    let myInterval = setInterval(() => {
-      if (minutes > -1 && !(minutes === 0 && seconds === 0)) {
-        if (seconds > 1) {
-          setSeconds(seconds - 1)
-          // Now payments GET request
-          if (paymentId) {
-            axios
-              .get(`https://api.nowpayments.io/v1/payment/${paymentId}`, {
-                headers: {
-                  'x-api-key': 'X2B0G4C-YBDM2YN-NRWFC4T-4959DGG',
-                },
-              })
-              .then((res) => {
-                // if status is finished, set status state to "finished"
-                if (res.data.payment_status !== 'finished') {
-                  // displays all currency
-                  console.log('GET PAYMENT STATUS RESPONSE: ')
-                  console.log(res)
-                  setStatus(res.data.payment_status)
-                } else {
-                  setStatus('finished')
-                  // If status is finished then timer should stop
-                  clearInterval(myInterval)
-                }
-              })
-          }
-        } else {
-          setSeconds(59)
-          setMinutes(minutes - 1)
-        }
-      } else {
-        clearInterval(myInterval)
-        setMinutes(0)
-        setSeconds(0)
-      }
-    }, 1000)
+  // // timer
+  // useEffect(() => {
+  //   let myInterval = setInterval(() => {
+  //     if (minutes > -1 && !(minutes === 0 && seconds === 0)) {
+  //       if (seconds > 1) {
+  //         setSeconds(seconds - 1)
+  //         // Now payments GET request
+  //         if (paymentId) {
+  //           axios
+  //             .get(`https://api.nowpayments.io/v1/payment/${paymentId}`, {
+  //               headers: {
+  //                 'x-api-key': 'X2B0G4C-YBDM2YN-NRWFC4T-4959DGG',
+  //               },
+  //             })
+  //             .then((res) => {
+  //               // if status is finished, set status state to "finished"
+  //               if (res.data.payment_status !== 'finished') {
+  //                 // displays all currency
+  //                 console.log('GET PAYMENT STATUS RESPONSE: ')
+  //                 console.log(res)
+  //                 setStatus(res.data.payment_status)
+  //               } else {
+  //                 setStatus('finished')
+  //                 // If status is finished then timer should stop
+  //                 clearInterval(myInterval)
+  //               }
+  //             })
+  //         }
+  //       } else {
+  //         setSeconds(59)
+  //         setMinutes(minutes - 1)
+  //       }
+  //     } else {
+  //       clearInterval(myInterval)
+  //       setMinutes(0)
+  //       setSeconds(0)
+  //     }
+  //   }, 1000)
 
-    return () => {
-      clearInterval(myInterval)
+  //   return () => {
+  //     clearInterval(myInterval)
+  //   }
+  // })
+
+  useEffect(() => {
+    console.log(fileSelected)
+    if (
+      fileSelected.length > 0 &&
+      (fileSelected[0].type === 'image/png' ||
+        fileSelected[0].type === 'image/jpeg')
+    ) {
+      // type: "image/png"
+      console.log(fileSelected[0])
+      const formData = new FormData()
+      formData.append('file', fileSelected[0]) // selectedImage is a state
+      formData.append('upload_preset', 'ai-powered')
+
+      const cloudName = 'https-ai-powered-io'
+      axios
+        .post(
+          `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+          formData
+        )
+        .then((res) => {
+          localStorage.setItem('filePaymentImg', res.data.url)
+        })
+        .then(() => {
+          setTimeout(() => setStatus('finished'), 1500)
+        })
+        .catch((err) => console.log(err))
+    } else {
+      setStatus('waiting')
     }
-  })
+  }, [fileSelected])
+
+  useEffect(() => {
+    if (imgSrc && !visible) {
+      console.log(imgSrc)
+      setTimeout(() => setStatus('finished'), 1500)
+    }
+  }, [imgSrc])
 
   const payHandler = async () => {
     setIsStepTwoDone(true)
@@ -159,10 +203,15 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
       location: location,
       selfieImg: localStorage.getItem('selfieImg'),
       idImg: localStorage.getItem('idImg'),
+      paymentImg:
+        localStorage.getItem('paymentImg') ||
+        localStorage.getItem('filePaymentImg'),
       timestamp: serverTimestamp(),
     })
       .then((res) => {
         console.log(res)
+        localStorage.removeItem('paymentImg')
+        localStorage.removeItem('filePaymentImg')
       })
       .catch((err) => {
         console.log(err)
@@ -176,6 +225,12 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
     >
       {contextHolder}
       <Container>
+        <PaymentCameraModal
+          imgSrc={imgSrc}
+          setImgSrc={setImgSrc}
+          visible={visible}
+          setVisible={setVisible}
+        />
         <div className='col-lg-8 mx-auto'>
           <h4 className='px-3 py-3 text-white neon'>
             <span className='me-2'>
@@ -295,6 +350,36 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
               <div>20 USDT</div>
             </div>
           </div>
+          {imgSrc ? (
+            <div className='col-8 mb-3'>
+              <img
+                className='w-100 h-100'
+                style={{ objectFit: 'cover' }}
+                src={imgSrc}
+                alt='captured'
+              />
+            </div>
+          ) : (
+            <div className='p-4 bg-light border text-center'>
+              <div className='small text-muted rubik-400 mt-3 col-md-4 mx-auto'>
+                Please open the camera and take a screenshot of your payment or
+                upload your proof of payment.
+              </div>
+              <Button className='mt-3' onClick={() => setVisible(true)}>
+                <CameraOutlined /> Take a photo
+              </Button>
+              <div>or</div>
+              <Form.Group className='col-lg-5 mx-auto'>
+                <Form.Control
+                  onChange={(e) => setFileSelected(e.target.files)}
+                  className='mt-2'
+                  size='sm'
+                  type='file'
+                />
+              </Form.Group>
+            </div>
+          )}
+
           {/* attention message */}
           <Button
             disabled={status !== 'finished'}
@@ -305,12 +390,12 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
             // icon={<FileDoneOutlined />}
             size='large'
             style={{
-              background: status !== 'finished' ? '#bebebe' : '#40B452',
-              color: status !== 'finished' ? '#363636' : '#ffffff',
+              background: status !== 'finished' ? '#d6d6d6' : '#40B452',
+              color: status !== 'finished' ? '#6d6d6d' : '#ffffff',
             }}
           >
             {status !== 'finished'
-              ? 'Waiting for payment success...'
+              ? 'Complete this process first'
               : 'Proceed to receipt'}
           </Button>
 

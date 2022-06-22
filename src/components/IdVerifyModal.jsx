@@ -23,7 +23,6 @@ const IdVerifyModal = ({
   title,
   testmrz,
 }) => {
-  const [deviceId, setDeviceId] = useState({})
   const [devices, setDevices] = useState([])
   const [selectedDeviceId, setSelectedDeviceId] = useState('')
   const [windowDimension, detectHW] = useState({
@@ -31,67 +30,65 @@ const IdVerifyModal = ({
     winHeight: window.innerHeight,
   })
 
-  const tesseractRead = () => {
-    console.log('scanning')
-    if (imgSrc) {
-      Tesseract.recognize(imgSrc).then(({ data: { text } }) => {
-        // alert('recognizing...')
-        const split = text.split('\n')
-        console.log(split)
-        const splittedText = split[0]
-        // notifies user if tesseract is not able to take anything from the photo
-        // if (splittedText.length === 0) {
-        //   alert(`We couldn't detect your ID. Please try again`)
-        // }
-        const nextLine = split[1]
-        console.log(split)
-        // extract country
-        const resultCountry = splittedText.slice(2, 5)
-        const startOfLastName = splittedText.slice(5)
-        const resultLastName = startOfLastName.slice(
-          0,
-          startOfLastName.indexOf('<')
-        )
-        const startOfFirstNameIndex =
-          resultCountry.length + resultLastName.length + 4
-        const startOfFirstName = splittedText.slice(startOfFirstNameIndex)
-        const resultFirstName = startOfFirstName.slice(
-          0,
-          startOfFirstName.indexOf('<')
-        )
-        const passportNumber = nextLine.slice(
-          0,
-          nextLine.indexOf(resultCountry)
-        )
-        const startOfDateIndex = passportNumber.length + resultCountry.length
-        const startOfDate = nextLine.slice(startOfDateIndex)
-        const resultBirthday =
-          startOfDate.slice(0, 2) +
-          '-' +
-          startOfDate.slice(2, 4) +
-          '-' +
-          startOfDate.slice(4, 6)
-        const startOfExpiryIndexSearch =
-          passportNumber.length + resultCountry.length + resultBirthday.length
-        console.log(nextLine.slice(startOfExpiryIndexSearch))
-        Axios.get(`https://restcountries.com/v3.1/alpha?codes=${resultCountry}`)
-          .then((res) => {
-            setFirstName(resultFirstName)
-            setLastName(resultLastName)
-            setAlpha3(resultCountry)
-            setCountry(res.data[0].name.common)
-            setFlag(res.data[0].flags.png)
-            setCountryCode(res.data[0].ccn3)
-            setPassportNum(passportNumber)
-            setBirthday(resultBirthday)
-          })
-          .then((error) => {
-            console.log(error)
-          })
-        console.log('scanning done')
-      })
-    }
-  }
+  // const tesseractRead = () => {
+  //   console.log('scanning')
+  //   if (imgSrc) {
+  //     Tesseract.recognize(imgSrc).then(({ data: { text } }) => {
+  //       // alert('recognizing...')
+  //       const split = text.split('\n')
+  //       const splittedText = split[0]
+  //       // notifies user if tesseract is not able to take anything from the photo
+  //       // if (splittedText.length === 0) {
+  //       //   alert(`We couldn't detect your ID. Please try again`)
+  //       // }
+  //       const nextLine = split[1]
+  //       // extract country
+  //       const resultCountry = splittedText.slice(2, 5)
+  //       const startOfLastName = splittedText.slice(5)
+  //       const resultLastName = startOfLastName.slice(
+  //         0,
+  //         startOfLastName.indexOf('<')
+  //       )
+  //       const startOfFirstNameIndex =
+  //         resultCountry.length + resultLastName.length + 4
+  //       const startOfFirstName = splittedText.slice(startOfFirstNameIndex)
+  //       const resultFirstName = startOfFirstName.slice(
+  //         0,
+  //         startOfFirstName.indexOf('<')
+  //       )
+  //       const passportNumber = nextLine.slice(
+  //         0,
+  //         nextLine.indexOf(resultCountry)
+  //       )
+  //       const startOfDateIndex = passportNumber.length + resultCountry.length
+  //       const startOfDate = nextLine.slice(startOfDateIndex)
+  //       const resultBirthday =
+  //         startOfDate.slice(0, 2) +
+  //         '-' +
+  //         startOfDate.slice(2, 4) +
+  //         '-' +
+  //         startOfDate.slice(4, 6)
+  //       const startOfExpiryIndexSearch =
+  //         passportNumber.length + resultCountry.length + resultBirthday.length
+  //       console.log(nextLine.slice(startOfExpiryIndexSearch))
+  //       Axios.get(`https://restcountries.com/v3.1/alpha?codes=${resultCountry}`)
+  //         .then((res) => {
+  //           setFirstName(resultFirstName)
+  //           setLastName(resultLastName)
+  //           setAlpha3(resultCountry)
+  //           setCountry(res.data[0].name.common)
+  //           setFlag(res.data[0].flags.png)
+  //           setCountryCode(res.data[0].ccn3)
+  //           setPassportNum(passportNumber)
+  //           setBirthday(resultBirthday)
+  //         })
+  //         .then((error) => {
+  //           console.log(error)
+  //         })
+  //       console.log('scanning done')
+  //     })
+  //   }
+  // }
 
   const detectSize = () => {
     detectHW({
@@ -137,11 +134,11 @@ const IdVerifyModal = ({
     // setImgSrc(imageSrc)
   }, [webcamRef, setImgSrc])
 
-  useEffect(() => {
-    if (imgSrc) {
-      tesseractRead()
-    }
-  }, [imgSrc])
+  // useEffect(() => {
+  //   if (imgSrc) {
+  //     tesseractRead()
+  //   }
+  // }, [imgSrc])
 
   const handleDevices = React.useCallback(
     (mediaDevices) =>
