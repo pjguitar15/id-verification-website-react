@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Form } from 'react-bootstrap'
 import { Button, notification } from 'antd'
 import qr from '../../assets/qr.png'
@@ -70,81 +70,80 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
     // Create payment post request
   }, [])
 
-  // useEffect(() => {
-  //   axios({
-  //     method: 'post',
-  //     url: 'https://api.nowpayments.io/v1/payment',
-  //     headers: {
-  //       'x-api-key': process.env.REACT_APP_NOWPAYMENTS_API_KEY,
-  //       'Content-Type': ' application/json',
-  //     },
-  //     data: {
-  //       price_amount: 20,
-  //       price_currency: 'usdttrc20',
-  //       // pay_amount: 20, // optional
-  //       pay_currency: 'usdttrc20',
-  //       ipn_callback_url: 'https://nowpayments.io',
-  //       order_id: 'RGDBP-21314',
-  //       order_description: 'AI-powered ID Verification',
-  //       // case: 'success',
-  //     },
-  //   })
-  //     .then((res) => {
-  //       console.log('Created payment:')
-  //       console.log(res)
-  //       console.log(res.data.payment_id)
-  //       setPaymentId(res.data.payment_id)
-  //       console.log('-------------------------')
-  //     })
-  //     .then(() => {
-  //       setToggle(false)
-  //     })
-  //     .catch((error) => console.log(error.response.data))
-  // }, [toggle])
+  useEffect(() => {
+    axios({
+      method: 'post',
+      url: 'https://api.nowpayments.io/v1/payment',
+      headers: {
+        'x-api-key': process.env.REACT_APP_NOWPAYMENTS_API_KEY,
+        'Content-Type': ' application/json',
+      },
+      data: {
+        price_amount: 20,
+        price_currency: 'usdttrc20',
+        // pay_amount: 20, // optional
+        pay_currency: 'usdttrc20',
+        ipn_callback_url: 'https://nowpayments.io',
+        order_description: 'AI-powered ID Verification',
+        // case: 'success',
+      },
+    })
+      .then((res) => {
+        console.log('Created payment:')
+        console.log(res)
+        console.log(res.data.payment_id)
+        setPaymentId(res.data.payment_id)
+        console.log('-------------------------')
+      })
+      .then(() => {
+        setToggle(false)
+      })
+      .catch((error) => console.log(error.response.data))
+  }, [toggle])
 
   // // timer
-  // useEffect(() => {
-  //   let myInterval = setInterval(() => {
-  //     if (minutes > -1 && !(minutes === 0 && seconds === 0)) {
-  //       if (seconds > 1) {
-  //         setSeconds(seconds - 1)
-  //         // Now payments GET request
-  //         if (paymentId) {
-  //           axios
-  //             .get(`https://api.nowpayments.io/v1/payment/${paymentId}`, {
-  //               headers: {
-  //                 'x-api-key': 'X2B0G4C-YBDM2YN-NRWFC4T-4959DGG',
-  //               },
-  //             })
-  //             .then((res) => {
-  //               // if status is finished, set status state to "finished"
-  //               if (res.data.payment_status !== 'finished') {
-  //                 // displays all currency
-  //                 console.log('GET PAYMENT STATUS RESPONSE: ')
-  //                 console.log(res)
-  //                 setStatus(res.data.payment_status)
-  //               } else {
-  //                 setStatus('finished')
-  //                 // If status is finished then timer should stop
-  //                 clearInterval(myInterval)
-  //               }
-  //             })
-  //         }
-  //       } else {
-  //         setSeconds(59)
-  //         setMinutes(minutes - 1)
-  //       }
-  //     } else {
-  //       clearInterval(myInterval)
-  //       setMinutes(0)
-  //       setSeconds(0)
-  //     }
-  //   }, 1000)
+  useEffect(() => {
+    let myInterval = setInterval(() => {
+      if (minutes > -1 && !(minutes === 0 && seconds === 0)) {
+        if (seconds > 1) {
+          setSeconds(seconds - 1)
+          // Now payments GET request
+          // if (paymentId) {
+          //   axios
+          //     .get(`https://api.nowpayments.io/v1/payment/${paymentId}`, {
+          //       headers: {
+          //         'x-api-key': 'X2B0G4C-YBDM2YN-NRWFC4T-4959DGG',
+          //       },
+          //     })
+          //     .then((res) => {
+          //       // if status is finished, set status state to "finished"
+          //       if (res.data.payment_status !== 'finished') {
+          //         // displays all currency
+          //         console.log('GET PAYMENT STATUS RESPONSE: ')
+          //         console.log(res)
+          //         setStatus(res.data.payment_status)
+          //       } else {
+          //         setStatus('finished')
+          //         // If status is finished then timer should stop
+          //         clearInterval(myInterval)
+          //       }
+          //     })
+          // }
+        } else {
+          setSeconds(59)
+          setMinutes(minutes - 1)
+        }
+      } else {
+        clearInterval(myInterval)
+        setMinutes(0)
+        setSeconds(0)
+      }
+    }, 1000)
 
-  //   return () => {
-  //     clearInterval(myInterval)
-  //   }
-  // })
+    return () => {
+      clearInterval(myInterval)
+    }
+  })
 
   useEffect(() => {
     console.log(fileSelected)
@@ -182,6 +181,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
       console.log(imgSrc)
       setTimeout(() => setStatus('finished'), 1500)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imgSrc])
 
   const payHandler = async () => {
