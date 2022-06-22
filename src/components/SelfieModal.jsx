@@ -2,7 +2,6 @@ import { Button, Modal } from 'antd'
 import React, { useState, useEffect, useRef } from 'react'
 import Webcam from 'react-webcam'
 import { Form } from 'react-bootstrap'
-import { PlusOutlined } from '@ant-design/icons'
 import Axios from 'axios'
 
 const SelfieModal = ({
