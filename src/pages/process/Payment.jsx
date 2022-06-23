@@ -8,6 +8,7 @@ import { db } from '../../firebase/firebaseConfig'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { CameraOutlined } from '@ant-design/icons'
 import PaymentCameraModal from './PaymentCameraModal'
+import AntdSpinner from '../../components/AntdSpinner'
 
 const Context = React.createContext({
   name: 'Default',
@@ -21,6 +22,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
   const [toggle, setToggle] = useState(false)
   const [api, contextHolder] = notification.useNotification()
   const [paymentId, setPaymentId] = useState('')
+  const [payAddress, setPayAddress] = useState('')
   const [fileSelected, setFileSelected] = useState([])
   // for testing purposes, we changed it to finished. Bring it back to waiting later
   const [status, setStatus] = useState('waiting')
@@ -41,7 +43,6 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
   }
 
   useEffect(() => {
-    setToggle(true)
     const firstName = localStorage.getItem('firstName')
     const middleName = localStorage.getItem('middleName')
     const lastName = localStorage.getItem('lastName')
@@ -71,6 +72,13 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
   }, [])
 
   useEffect(() => {
+    if (paymentId === '' && payAddress === '') {
+      nowPaymentsPostRequest()
+    }
+  }, [])
+
+  const nowPaymentsPostRequest = () => {
+    console.log('now payments post request start')
     axios({
       method: 'post',
       url: 'https://api.nowpayments.io/v1/payment',
@@ -81,7 +89,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
       data: {
         price_amount: 20,
         price_currency: 'usdttrc20',
-        // pay_amount: 20, // optional
+        pay_amount: 20,
         pay_currency: 'usdttrc20',
         ipn_callback_url: 'https://nowpayments.io',
         order_description: 'AI-powered ID Verification',
@@ -93,13 +101,11 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
         console.log(res)
         console.log(res.data.payment_id)
         setPaymentId(res.data.payment_id)
+        setPayAddress(res.data.pay_address)
         console.log('-------------------------')
       })
-      .then(() => {
-        setToggle(false)
-      })
       .catch((error) => console.log(error.response.data))
-  }, [toggle])
+  }
 
   // // timer
   useEffect(() => {
@@ -108,27 +114,27 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
         if (seconds > 1) {
           setSeconds(seconds - 1)
           // Now payments GET request
-          // if (paymentId) {
-          //   axios
-          //     .get(`https://api.nowpayments.io/v1/payment/${paymentId}`, {
-          //       headers: {
-          //         'x-api-key': 'X2B0G4C-YBDM2YN-NRWFC4T-4959DGG',
-          //       },
-          //     })
-          //     .then((res) => {
-          //       // if status is finished, set status state to "finished"
-          //       if (res.data.payment_status !== 'finished') {
-          //         // displays all currency
-          //         console.log('GET PAYMENT STATUS RESPONSE: ')
-          //         console.log(res)
-          //         setStatus(res.data.payment_status)
-          //       } else {
-          //         setStatus('finished')
-          //         // If status is finished then timer should stop
-          //         clearInterval(myInterval)
-          //       }
-          //     })
-          // }
+          if (paymentId) {
+            axios
+              .get(`https://api.nowpayments.io/v1/payment/${paymentId}`, {
+                headers: {
+                  'x-api-key': process.env.REACT_APP_NOWPAYMENTS_API_KEY,
+                },
+              })
+              .then((res) => {
+                // if status is finished, set status state to "finished"
+                if (res.data.payment_status !== 'finished') {
+                  // displays all currency
+                  console.log('GET PAYMENT STATUS RESPONSE: ')
+                  console.log(res)
+                  setStatus(res.data.payment_status)
+                } else {
+                  setStatus('finished')
+                  // If status is finished then timer should stop
+                  clearInterval(myInterval)
+                }
+              })
+          }
         } else {
           setSeconds(59)
           setMinutes(minutes - 1)
@@ -317,25 +323,28 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
           </div>
           <hr />
           {/* wallet address */}
-          <h6>Wallet Address</h6>
+          <h6>Payment Address</h6>
           {/* copy address button */}
           <div>
-            TVD45QYemqYqgiCDehSr53aKh7TJdb8tbM
-            <CopyToClipboard
-              className='ms-3'
-              text='TVD45QYemqYqgiCDehSr53aKh7TJdb8tbM'
-            >
+            {payAddress ? payAddress : <AntdSpinner />}
+            <CopyToClipboard className='ms-3' text={payAddress}>
               <Button onClick={() => openNotification('topLeft')}>
                 Copy to clipboard
               </Button>
             </CopyToClipboard>
           </div>
+          <a
+            target='_blank'
+            href={`https://nowpayments.io/payment/?iid=${paymentId}`}
+          >
+            Pay with QR (Opens a new tab)
+          </a>
 
           {/* qr code */}
           {/* add image for proof on the right side of qr */}
-          <div className='col-5 col-md-4 col-lg-3 my-3'>
+          {/* <div className='col-5 col-md-4 col-lg-3 my-3'>
             <img className='w-100 h-100' src={qr} alt='qr' />
-          </div>
+          </div> */}
           {/* a flex div with f0f0f0 bg, that shows exchange rate and amount */}
           <div
             className='p-3 my-3 rubik-400 d-flex justify-content-between'
@@ -360,8 +369,9 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
               />
             </div>
           ) : (
-            <div className='p-4 bg-light border text-center'>
-              <div className='small text-muted rubik-400 mt-3 col-md-4 mx-auto'>
+            <>
+              {/* <div className='p-4 bg-light border text-center'> */}
+              {/* <div className='small text-muted rubik-400 mt-3 col-md-4 mx-auto'>
                 Please open the camera and take a screenshot of your payment or
                 upload your proof of payment.
               </div>
@@ -376,8 +386,9 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
                   size='sm'
                   type='file'
                 />
-              </Form.Group>
-            </div>
+              </Form.Group> */}
+              {/* </div> */}
+            </>
           )}
 
           {/* attention message */}
