@@ -96,7 +96,6 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
         pay_currency: 'usdttrc20',
         ipn_callback_url: 'https://nowpayments.io',
         order_description: 'AI-powered ID Verification',
-        order_id: uuidv4().slice(24),
         // case: 'success',
       },
     })
