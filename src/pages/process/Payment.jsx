@@ -86,7 +86,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
       method: 'post',
       url: 'https://api.nowpayments.io/v1/payment',
       headers: {
-        'x-api-key': process.env.REACT_APP_NOWPAYMENTS_API_KEY,
+        'x-api-key': 'N1A9GER-DEW4P08-KZY9DYT-TEZJCVW',
         'Content-Type': ' application/json',
       },
       data: {
