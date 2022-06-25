@@ -9,6 +9,8 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { CameraOutlined } from '@ant-design/icons'
 import PaymentCameraModal from './PaymentCameraModal'
 import AntdSpinner from '../../components/AntdSpinner'
+import { v4 as uuidv4 } from 'uuid'
+import QRCode from 'qrcode'
 
 const Context = React.createContext({
   name: 'Default',
@@ -23,6 +25,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
   const [api, contextHolder] = notification.useNotification()
   const [paymentId, setPaymentId] = useState('')
   const [payAddress, setPayAddress] = useState('')
+  const [qrUrl, setQrUrl] = useState('')
   const [fileSelected, setFileSelected] = useState([])
   // for testing purposes, we changed it to finished. Bring it back to waiting later
   const [status, setStatus] = useState('waiting')
@@ -93,6 +96,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
         pay_currency: 'usdttrc20',
         ipn_callback_url: 'https://nowpayments.io',
         order_description: 'AI-powered ID Verification',
+        order_id: uuidv4().slice(24),
         // case: 'success',
       },
     })
@@ -102,6 +106,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
         console.log(res.data.payment_id)
         setPaymentId(res.data.payment_id)
         setPayAddress(res.data.pay_address)
+        QRCode.toDataURL(res.data.pay_address).then(setQrUrl)
         console.log('-------------------------')
       })
       .catch((error) => console.log(error.response.data))
@@ -333,18 +338,17 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
               </Button>
             </CopyToClipboard>
           </div>
-          <a
-            target='_blank'
-            href={`https://nowpayments.io/payment/?iid=${paymentId}`}
-          >
-            Pay with QR (Opens a new tab)
-          </a>
 
           {/* qr code */}
           {/* add image for proof on the right side of qr */}
-          {/* <div className='col-5 col-md-4 col-lg-3 my-3'>
-            <img className='w-100 h-100' src={qr} alt='qr' />
-          </div> */}
+          {qrUrl ? (
+            <div className='col-5 col-md-4 col-lg-3 my-1'>
+              <img className='w-100 h-100' src={qrUrl} alt='qr' />
+            </div>
+          ) : (
+            <AntdSpinner />
+          )}
+
           {/* a flex div with f0f0f0 bg, that shows exchange rate and amount */}
           <div
             className='p-3 my-3 rubik-400 d-flex justify-content-between'
