@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Form } from 'react-bootstrap'
 import { Button, notification } from 'antd'
-import qr from '../../assets/qr.png'
 import axios from 'axios'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { db } from '../../firebase/firebaseConfig'
@@ -122,7 +121,7 @@ const Payment = ({ cancelClick, setIsStepTwoDone }) => {
             axios
               .get(`https://api.nowpayments.io/v1/payment/${paymentId}`, {
                 headers: {
-                  'x-api-key': process.env.REACT_APP_NOWPAYMENTS_API_KEY,
+                  'x-api-key': 'N1A9GER-DEW4P08-KZY9DYT-TEZJCVW',
                 },
               })
               .then((res) => {
